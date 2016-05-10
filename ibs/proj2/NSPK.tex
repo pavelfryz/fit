@@ -1,0 +1,100 @@
+\section{Implementace protokolu Needham-Schroeder Public Key}
+V~tomto příkladě si vyzkoušíte implementaci a~verifikaci \emph{Needham-Schroeder Public Key}
+protokolu, který slouží pro obousměrnou autentizaci pomocí důvěryhodného serveru.
+
+\begin{enumerate}
+  %%%>==== 1.krok
+  \item Po spuštění nástroje zadávajte kód protokolu v~hlavní editovací části okna.
+
+  %%%>==== 2.krok
+  \item Na~úvod deklarujeme funkce pro veřejné a~soukromé klíče. Deklarace pomocí klíčového slova \texttt{const},
+  učiní funkci \texttt{pk} veřejnou. Pomocí slova \texttt{secret} označíme pak funkci \texttt{sk} jako tajnou.
+  \begin{lstlisting}[name=NSPK]
+const pk: Function;
+secret sk: Function;
+  \end{lstlisting}
+
+  %%%>==== 3.krok
+  \item Následně deklarujeme, že tyto funkce tvoří pár asymetrických klíčů.
+  \begin{lstlisting}[name=NSPK]
+inversekeys(pk,sk);
+  \end{lstlisting}
+
+  %%%>==== 4.krok
+  \item Dále deklarujeme protokol klíčovým slovom \texttt{protocol} nasledovaný jeho jménem a~jmény účastníků.
+  \begin{lstlisting}[name=NSPK]
+protocol NeedhamSchroeder(A,B,S)
+{
+  \end{lstlisting}
+
+  %%%>==== 5.krok
+  \item Následuje definice jednotlivých uživatelů. Definice účastníka začíná klíčovým slovem \texttt{role}.
+  Prvně definujeme účastníka \texttt{A} a~deklarujeme lokální proměnné pro nonce \texttt{Na}, který
+  vytváří, a~pro nonce \texttt{Nb}, který obdrží od účastníka \texttt{B}.
+  \begin{lstlisting}[name=NSPK]
+  role A
+  {
+    const Na: Nonce;
+    var Nb: Nonce;
+  \end{lstlisting}
+
+  %%%>==== 6.krok
+  \item Dále definujem příchozí a~odchozí zprávy účastníka \texttt{A}.
+  Příchozí a~odchozí zpráva začíná klíčovým slovem \texttt{recv}, respektive \texttt{send} následované označením zprávy.
+  V~kulatých závorkách poté následuje od koho zpráva pochází, příjemce zprávy a~text zprávy.
+  \begin{lstlisting}[name=NSPK]
+    send_1(A,S,(A,B));
+    recv_2(S,A,{pk(B),B}sk(S));
+    send_3(A,B,{Na,A}pk(B));
+    recv_6(B,A,{Na,Nb}pk(A));
+    send_7(A,B,{Nb}pk(B));
+  \end{lstlisting}
+  kde \texttt{\{x\}pk(A)} značí zprávu \texttt{x} zašifrovanou veřejným klíčem \texttt{A}.
+
+  %%%>==== 7.krok
+  \item Nakonec přidáme bezpečnostní požadavky protokolu. V~našem případě se jedná o~utajení nonců, a~neinjektivní synchronizaci
+  \begin{lstlisting}[name=NSPK]
+    claim_A1(A,Secret,Na);
+    claim_A2(A,Secret,Nb);
+    claim_A3(A,Nisynch);
+  }
+  \end{lstlisting}
+
+  %%%>==== 8.krok
+  \item Obdobně přidáme i~účastníka \texttt{B} a~server \texttt{S}.
+  \begin{lstlisting}[name=NSPK]
+  role B
+  {
+    const Nb: Nonce;
+    var Na: Nonce;
+    recv_3(A,B,{Na,A}pk(B));
+    send_4(B,S,(B,A));
+    recv_5(S,B,{pk(A),A}sk(S));
+    send_6(B,A,{Na,Nb}pk(A));
+    recv_7(A,B,{Nb}pk(B));
+    claim_B1(B,Secret,Na);
+    claim_B2(B,Secret,Nb);
+    claim_B3(B,Nisynch);
+  }
+  role S
+  {
+    recv_1(A,S,(A,B));
+    send_2(S,A,{pk(B),B}sk(S));
+    recv_4(B,S,(B,A));
+    send_5(S,B,{pk(A),A}sk(S));
+  }
+}
+  \end{lstlisting}
+
+  %%%>==== 9.krok
+  \item Nakonec přidáme nedůvěryhodného klienta, jehož soukromý klíč byl zpronevěřen útočníkem.
+  \begin{lstlisting}[name=NSPK]
+const C: Agent;
+untrusted C;
+compromised sk(C);
+  \end{lstlisting}
+
+  %%%>==== 10.krok
+  \item Spuťte verifikaci protokolu(v menu \texttt{Verify->Verify protocol}), a~projděte výsledky verifikace. Nechte
+  si zobrazit případný útok.
+\end{enumerate}

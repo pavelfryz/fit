@@ -1,0 +1,7 @@
+Prelozeni a spusteni.
+1. Projekt importujte do prostredi eclipse
+2. Prelozte a spustte 
+
+Pro zmenu vzhledu zvolte window->choose style a vyberte prilozeny ukazkovy soubor example.css
+Pro prehravani hudby zvolte window->choose music, zobrazi se vam okno pro vyber souboru, muzete vybrat nekolik souboru
+naraz, podporovany jsou soubory typu wav, mp3, aac

@@ -1,0 +1,39 @@
+/* setting initial position of desktop d1,d2,d3 */
+#d1{
+	height: 400px;
+	width: 60%;
+	left: 20%;
+}
+
+#d2{
+	height: 400px;
+	width: 60%;
+	left: 20%;
+}
+
+#d3{
+	height: 80%;
+	width: 80%;
+	top: 10%;
+	left: 10%;
+}
+
+/* setting initial position for all windows */
+#w1,#w2,#w3,#w4,#w5,#w6{
+	width: 50%;
+	height: 50%;
+}
+
+#w2,#w4{
+	left:25%;
+	top:33%;
+}
+
+#w5,#w6{
+	left:40%;
+}
+
+#w6{
+	top:40%;
+}
+

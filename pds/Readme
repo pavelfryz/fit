@@ -1,0 +1,26 @@
+Projekt realizuje firewall jako modul, ktery zavadi do jadra a klientskou
+aplikaci, diky niz je mozne pridat jednotliva pravidla.
+
+Omezeni, specifikace:
+- Pokud pri vkladani existuje pravidlo se stejnym ID, je stavajici pravidlo
+  nahrazeno novym.
+- U klientske aplikace nelze kombinovat vice prepinacu.
+- V pripade prepinace -a se provede konkatenace nasledujicich parametru, 
+  a vysledny retezec s pravidly se prida do firewallu, je tedy mozne 
+  pridat vice jak jedno pravidlo. 
+
+Klasifikacni algoritmus:
+- Pro klasifikaci je vyuzita n-narni stromova struktura o 6 urovnich:
+  - 1. uroven pro porovnani protocolu
+  - 2. uroven pro porovnani zdrojove adresy
+  - 3. uroven pro porovnani cilove adresy
+  - 4. uroven pro porovnani zdrojoveho portu
+  - 5. uroven pro porovnani ciloveho portu
+  - 6. uroven pro pouzite pravidlo
+- Na kazde urovni se linearne vyhledava podstrom, ktery vyhovuje prichozimu pravidlu.
+  - Pri nalezeni podstromu se pokracuje o uroven niz.
+  - Pokud neni nalezen podstrom, je pouzito implicitni pravidlo.
+  
+Reference:
+- http://aquamentus.com/flex_bison.html
+- http://www.roman10.net/category/linux-study-notes/linux-kernel-programming/

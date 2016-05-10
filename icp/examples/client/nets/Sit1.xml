@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Petri-NET>
+ <name>Jednoducha sit</name>
+ <description>Popis jednoduche site</description>
+ <Place>
+  <x>-441</x>
+  <y>-59</y>
+  <id>0</id>
+  <tokens>100,101,102,103,104</tokens>
+ </Place>
+ <Place>
+  <x>-442</x>
+  <y>-183</y>
+  <id>1</id>
+  <tokens>1,2,3,4,5</tokens>
+ </Place>
+ <Place>
+  <x>-177</x>
+  <y>-110</y>
+  <id>2</id>
+  <tokens></tokens>
+ </Place>
+ <Transition>
+  <x>-310</x>
+  <y>-174</y>
+  <id>0</id>
+  <guard>b>2</guard>
+  <expr>a=b+c</expr>
+ </Transition>
+ <Transition>
+  <x>-297</x>
+  <y>-50</y>
+  <id>1</id>
+  <guard></guard>
+  <expr></expr>
+ </Transition>
+ <Arc>
+  <orientation>toTransition</orientation>
+  <place_id>1</place_id>
+  <transition_id>0</transition_id>
+  <constOrVar>b</constOrVar>
+ </Arc>
+ <Arc>
+  <orientation>toTransition</orientation>
+  <place_id>0</place_id>
+  <transition_id>0</transition_id>
+  <constOrVar>c</constOrVar>
+ </Arc>
+ <Arc>
+  <orientation>toTransition</orientation>
+  <place_id>0</place_id>
+  <transition_id>1</transition_id>
+  <constOrVar></constOrVar>
+ </Arc>
+ <Arc>
+  <orientation>toPlace</orientation>
+  <place_id>2</place_id>
+  <transition_id>1</transition_id>
+  <constOrVar>999</constOrVar>
+ </Arc>
+ <Arc>
+  <orientation>toPlace</orientation>
+  <place_id>2</place_id>
+  <transition_id>0</transition_id>
+  <constOrVar>a</constOrVar>
+ </Arc>
+</Petri-NET>

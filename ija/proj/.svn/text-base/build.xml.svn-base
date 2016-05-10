@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project name="ija projekt" default="compile" basedir=".">
+
+    <description>Popis</description>
+
+    <property name="src" location="src"/>
+    <property name="doc" location="doc"/>
+    <property name="build" location="build"/>
+    <property name="client" location="dest-client"/>
+    <property name="server" location="dest-server"/>
+    <property name="lib" location="lib"/>
+    <property name="example" location="examples"/>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${doc}"/>
+    </target>
+
+    <target name="init" depends="clean">
+      <mkdir dir="${build}"/>
+      <mkdir dir="${doc}"/>
+      <get src="http://sourceforge.net/projects/dom4j/files/dom4j/1.6.1/dom4j-1.6.1.jar"
+            dest="${lib}/dom4j-1.6.1.jar"/> 
+    </target>
+
+    <target name="compile" depends="clientjar,serverjar,javadoc"/>
+
+    <target name="clientcompile" depends="init">
+        <javac deprecation="on"
+               srcdir="${src}"
+               destdir="${build}"
+               encoding="ISO8859-2"
+               includes="client/Client.java"
+               classpath="${lib}/dom4j-1.6.1.jar:${src}"/>
+    </target>
+
+    <target name="servercompile" depends="init">
+        <javac srcdir="${src}"
+               destdir="${build}"
+               encoding="ISO8859-2"
+               includes="server/Server.java"
+               classpath="${lib}/dom4j-1.6.1.jar:${src}"/>
+    </target>
+
+    <target name="clientjar" depends="clientcompile">
+        <delete dir="${client}"/>
+        <mkdir dir="${client}"/>
+        <jar destfile="${client}/ija2012-client.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="client.Client"/>
+                <attribute name="Class-Path" value="lib/dom4j-1.6.1.jar"/>
+            </manifest>
+        </jar>
+        <mkdir dir="${client}/lib"/>
+        <copy file="${lib}/dom4j-1.6.1.jar" todir="${client}/lib"/>
+        <copy file="${example}/client/styles.xml" todir="${client}"/>
+        <copy file="${example}/client/config.xml" todir="${client}"/>
+        <mkdir dir="${client}/nets"/>
+        <copy todir="${client}/nets">
+          <fileset dir="${example}/client/nets"/>
+        </copy>
+    </target>
+
+    <target name="serverjar" depends="servercompile">
+        <delete dir="${server}"/>
+        <mkdir dir="${server}"/>
+        <jar destfile="${server}/ija2012-server.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="server.Server"/>
+                <attribute name="Class-Path" value="lib/dom4j-1.6.1.jar"/>
+            </manifest>
+        </jar>
+        <mkdir dir="${server}/lib"/>
+        <copy file="${lib}/dom4j-1.6.1.jar" todir="${server}/lib"/>
+        <copy file="${example}/server/users.xml" todir="${server}"/>
+        <mkdir dir="${server}/nets"/>
+        <copy todir="${server}/nets">
+          <fileset dir="${example}/server/nets"/>
+        </copy>
+    </target>
+
+    <target name="client" depends="clientjar">
+        <java jar="${client}/ija2012-client.jar" dir="${client}" fork="true"/>
+    </target>
+
+    <target name="server" depends="serverjar">
+        <java jar="${server}/ija2012-server.jar" dir="${server}" fork="true"/>
+    </target>
+
+    <target name="javadoc" depends="init">
+      <javadoc sourcepath="${src}"
+               classpath="${lib}/dom4j-1.6.1.jar"
+               destdir="${doc}"/>
+    </target>
+</project>
+

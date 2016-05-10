@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PetriNet> 
+  <GNet> 
+    <name>Sit1</name>  
+    <description>Jednoducha sit</description>  
+    <GTransition id="0" x="293" y="211"> 
+      <executable>false</executable>  
+      <Guard/>  
+      <Expr>x=5</Expr> 
+    </GTransition>  
+    <GTransition id="1" x="292" y="69"> 
+      <executable>false</executable>  
+      <Guard>y&gt;1&amp;x&gt;=5</Guard>  
+      <Expr>z=x+y</Expr> 
+    </GTransition>  
+    <GPlace id="0" x="110" y="210"> 
+      <IntToken value="4"/>  
+      <IntToken value="5"/>  
+      <IntToken value="6"/> 
+    </GPlace>  
+    <GPlace id="1" x="450" y="142"/>  
+    <GPlace id="2" x="108" y="68"> 
+      <IntToken value="1"/>  
+      <IntToken value="2"/>  
+      <IntToken value="3"/> 
+    </GPlace>  
+    <GArc orientation="toTransition"> 
+      <place id="0"/>  
+      <transition id="0"/>  
+      <label>4</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="1"/>  
+      <transition id="0"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="0"/>  
+      <transition id="1"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="1"/>  
+      <transition id="1"/>  
+      <label>z</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="2"/>  
+      <transition id="1"/>  
+      <label>y</label> 
+    </GArc>  
+    <user>hugo</user>  
+    <version>1</version> 
+  </GNet>  
+  <Simulation> 
+    <user>hugo</user>  
+    <date>Sat May 05 14:39:28 CEST 2012</date> 
+  </Simulation>  
+  <Simulation> 
+    <user>hugo</user>  
+    <date>Sat May 05 14:39:38 CEST 2012</date> 
+  </Simulation>  
+  <Simulation> 
+    <user>hugo</user>  
+    <date>Sat May 05 14:39:42 CEST 2012</date> 
+  </Simulation>  
+  <Simulation> 
+    <user>hugo</user>  
+    <date>Sat May 05 14:39:47 CEST 2012</date> 
+  </Simulation>  
+  <Simulation> 
+    <user>hugo</user>  
+    <date>Sat May 05 14:40:25 CEST 2012</date> 
+  </Simulation>  
+  <GNet> 
+    <name>Sit1</name>  
+    <description>Trochu slozitejsi verze</description>  
+    <GTransition id="0" x="293" y="211"> 
+      <executable>false</executable>  
+      <Guard/>  
+      <Expr>x=5</Expr> 
+    </GTransition>  
+    <GTransition id="1" x="292" y="69"> 
+      <executable>false</executable>  
+      <Guard>y&gt;1&amp;x&gt;=5</Guard>  
+      <Expr>z=x+y</Expr> 
+    </GTransition>  
+    <GTransition id="2" x="538" y="142"> 
+      <executable>false</executable>  
+      <Guard/> 
+    </GTransition>  
+    <GTransition id="3" x="292" y="341"> 
+      <executable>false</executable>  
+      <Guard/>  
+      <Expr>x=11</Expr> 
+    </GTransition>  
+    <GTransition id="4" x="34" y="130"> 
+      <executable>false</executable>  
+      <Guard/> 
+    </GTransition>  
+    <GPlace id="0" x="110" y="210"> 
+      <IntToken value="4"/>  
+      <IntToken value="5"/>  
+      <IntToken value="6"/> 
+    </GPlace>  
+    <GPlace id="1" x="450" y="142"/>  
+    <GPlace id="2" x="108" y="68"> 
+      <IntToken value="1"/>  
+      <IntToken value="2"/>  
+      <IntToken value="3"/> 
+    </GPlace>  
+    <GPlace id="3" x="109" y="343"/>  
+    <GPlace id="4" x="629" y="141"/>  
+    <GArc orientation="toTransition"> 
+      <place id="0"/>  
+      <transition id="0"/>  
+      <label>4</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="1"/>  
+      <transition id="0"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="0"/>  
+      <transition id="1"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="1"/>  
+      <transition id="1"/>  
+      <label>z</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="2"/>  
+      <transition id="1"/>  
+      <label>y</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="1"/>  
+      <transition id="2"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="1"/>  
+      <transition id="3"/>  
+      <label/> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="3"/>  
+      <transition id="3"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="3"/>  
+      <transition id="4"/>  
+      <label/> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="2"/>  
+      <transition id="4"/>  
+      <label>2</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="0"/>  
+      <transition id="4"/>  
+      <label>5</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="4"/>  
+      <transition id="2"/>  
+      <label>x</label> 
+    </GArc>  
+    <user>hugo</user>  
+    <version>2</version> 
+  </GNet>  
+  <Simulation> 
+    <user>hugo</user>  
+    <date>Sat May 05 14:41:26 CEST 2012</date> 
+  </Simulation>  
+  <GNet> 
+    <name>Sit1</name>  
+    <description>Odsimulovana slozitejsi verze</description>  
+    <GTransition id="0" x="293" y="211"> 
+      <executable>false</executable>  
+      <Guard/>  
+      <Expr>x=5</Expr> 
+    </GTransition>  
+    <GTransition id="1" x="292" y="69"> 
+      <executable>false</executable>  
+      <Guard>y&gt;1&amp;x&gt;=5</Guard>  
+      <Expr>z=x+y</Expr> 
+    </GTransition>  
+    <GTransition id="2" x="538" y="142"> 
+      <executable>false</executable>  
+      <Guard/> 
+    </GTransition>  
+    <GTransition id="3" x="292" y="341"> 
+      <executable>false</executable>  
+      <Guard/>  
+      <Expr>x=11</Expr> 
+    </GTransition>  
+    <GTransition id="4" x="34" y="130"> 
+      <executable>false</executable>  
+      <Guard/> 
+    </GTransition>  
+    <GPlace id="0" x="110" y="210"/>  
+    <GPlace id="1" x="450" y="142"/>  
+    <GPlace id="2" x="108" y="68"> 
+      <IntToken value="1"/> 
+    </GPlace>  
+    <GPlace id="3" x="109" y="343"/>  
+    <GPlace id="4" x="629" y="141"> 
+      <IntToken value="8"/>  
+      <IntToken value="7"/>  
+      <IntToken value="8"/> 
+    </GPlace>  
+    <GArc orientation="toTransition"> 
+      <place id="0"/>  
+      <transition id="0"/>  
+      <label>4</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="1"/>  
+      <transition id="0"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="0"/>  
+      <transition id="1"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="1"/>  
+      <transition id="1"/>  
+      <label>z</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="2"/>  
+      <transition id="1"/>  
+      <label>y</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="1"/>  
+      <transition id="2"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="1"/>  
+      <transition id="3"/>  
+      <label/> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="3"/>  
+      <transition id="3"/>  
+      <label>x</label> 
+    </GArc>  
+    <GArc orientation="toTransition"> 
+      <place id="3"/>  
+      <transition id="4"/>  
+      <label/> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="2"/>  
+      <transition id="4"/>  
+      <label>2</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="0"/>  
+      <transition id="4"/>  
+      <label>5</label> 
+    </GArc>  
+    <GArc orientation="toPlace"> 
+      <place id="4"/>  
+      <transition id="2"/>  
+      <label>x</label> 
+    </GArc>  
+    <user>hugo</user>  
+    <version>3</version> 
+  </GNet>  
+  <Simulation> 
+    <user>admin</user>  
+    <date>Sat May 05 14:43:14 CEST 2012</date> 
+  </Simulation>  
+  <Simulation> 
+    <user>admin</user>  
+    <date>Sat May 05 14:43:15 CEST 2012</date> 
+  </Simulation>  
+  <Simulation> 
+    <user>admin</user>  
+    <date>Sat May 05 14:43:16 CEST 2012</date> 
+  </Simulation>  
+  <GNet>
+    <name>Sit1</name>
+    <description>Odsimulovana slozitejsi verze</description>
+    <GTransition id="0" x="292" y="69">
+      <executable>false</executable>
+      <Guard/>
+      <Expr>z=y+1</Expr>
+    </GTransition>
+    <GTransition id="1" x="538" y="142">
+      <executable>false</executable>
+      <Guard/>
+    </GTransition>
+    <GTransition id="2" x="298" y="343">
+      <executable>false</executable>
+      <Guard/>
+      <Expr>x=a-10</Expr>
+    </GTransition>
+    <GTransition id="3" x="45" y="134">
+      <executable>false</executable>
+      <Guard>y&gt;0</Guard>
+    </GTransition>
+    <GTransition id="4" x="289" y="266">
+      <executable>false</executable>
+      <Guard/>
+      <Expr>x=a+10</Expr>
+    </GTransition>
+    <GPlace id="0" x="450" y="142"/>
+    <GPlace id="1" x="108" y="68">
+      <IntToken value="1"/>
+    </GPlace>
+    <GPlace id="2" x="109" y="343"/>
+    <GPlace id="3" x="629" y="141">
+      <IntToken value="8"/>
+      <IntToken value="7"/>
+      <IntToken value="8"/>
+    </GPlace>
+    <GArc orientation="toPlace">
+      <place id="0"/>
+      <transition id="0"/>
+      <label>z</label>
+    </GArc>
+    <GArc orientation="toTransition">
+      <place id="1"/>
+      <transition id="0"/>
+      <label>y</label>
+    </GArc>
+    <GArc orientation="toTransition">
+      <place id="0"/>
+      <transition id="1"/>
+      <label>x</label>
+    </GArc>
+    <GArc orientation="toTransition">
+      <place id="0"/>
+      <transition id="2"/>
+      <label>a</label>
+    </GArc>
+    <GArc orientation="toPlace">
+      <place id="2"/>
+      <transition id="2"/>
+      <label>x</label>
+    </GArc>
+    <GArc orientation="toTransition">
+      <place id="2"/>
+      <transition id="3"/>
+      <label>y</label>
+    </GArc>
+    <GArc orientation="toPlace">
+      <place id="1"/>
+      <transition id="3"/>
+      <label>5</label>
+    </GArc>
+    <GArc orientation="toPlace">
+      <place id="3"/>
+      <transition id="1"/>
+      <label>x</label>
+    </GArc>
+    <GArc orientation="toTransition">
+      <place id="0"/>
+      <transition id="4"/>
+      <label>a</label>
+    </GArc>
+    <GArc orientation="toPlace">
+      <place id="2"/>
+      <transition id="4"/>
+      <label>x</label>
+    </GArc>
+    <user>admin</user>
+    <version>4</version>
+  </GNet>
+</PetriNet>

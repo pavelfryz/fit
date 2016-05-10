@@ -1,0 +1,362 @@
+\documentclass[12pt,a4paper,titlepage,final]{article}
+
+% cestina a fonty
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+% balicky pro odkazy
+\usepackage[bookmarksopen,colorlinks,plainpages=false,urlcolor=blue,unicode]{hyperref}
+\usepackage{url}
+% obrazky
+\usepackage[dvipdf]{graphicx}
+% velikost stranky
+\usepackage[top=3.5cm, left=2.5cm, text={17cm, 24cm}, ignorefoot]{geometry}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% titulní strana
+
+\def\author{Pavel Frýz}
+\def\email{xfryzp00@stud.fit.vutbr.cz}
+\def\projname{Iterační výpočty}
+% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\input{title.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% obsah
+\pagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{1}
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% textova zprava
+\newpage
+\pagestyle{plain}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Úvod} \label{uvod}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Tato dokumentace popisuje návrh a implementaci programu pro~výpočet vybraných
+matematických funkcí. Jedná se o~$\tanh{x}$, $\log_{a}{x}$, vážený aritmetický 
+a kvadratický průměr. V~kapitole~\ref{analyza} najdeme seznámení s~problémem, 
+v~kapitole~\ref{reseni} najdeme řešení jednotlivých problémů, rozsah definičních
+oborů a specifikaci testů. V~kapitole~\ref{popis} se nachází popis vlastní implementace
+vycházející z~analýzy a návrhu řešení. V~poslední kapitole~\ref{zaver} nalezneme celkove
+zhodnocení programu.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analýza problému} \label{analyza}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%=============================================================================
+\subsection{Zadání problému}
+
+Cílem tohoto projektu je vytvoření programu v~jazyce C pro výpočet následujích
+matematických funkcí:
+\begin{itemize}
+ \item $y=\tanh{x}$
+ \item $y=\log_{a}x$
+ \item Vážený aritmetický průměr
+ \item Vážený kvadratický průměr
+\end{itemize}
+Program musí být schopen zpracovat libovolně dlouhou posloupnost číselných
+hodnot typu \texttt{double}, která budou zapsána na~standartní vstup.
+Výstupní data mají být zapsána na~standartní výstup.
+%=============================================================================
+\subsection{Konvergence}
+
+\paragraph*{Věta o~konvergenčním intervalu \cite{konver}\\}
+Ke~každé mocninné řadě $\sum\limits_{k=0}^\infty a_{k}x^{k}$ existuje takové číslo (tzv. poloměr
+konvergence) $r>0$ (připouštíme i $r = +\infty$), že pro~všechna čísla $x$, pro~něž
+$|x| < r$ (tzv. interval konvergence [konvergenční interval]), je mocninná řada
+absolutně konvergentní a pro~všechna čísla $x$, pro~něž $|x| > r$, je divergentní.
+V~bodech $x$, pro~něž $|x|=r$, nelze obecně rozhodnout, zda mocninná řada je
+konvergentní nebo divergentní. Je-li $r = 0$, pak mocninná řada je konvergentní
+jen v~bodě $x = 0$. Jestliže $r = + \infty$, pak mocninná řada je konvergentní
+na~množině $R$.
+
+Vydíme, že může nastat problém pokud vstupní hodnota nepatří do~konvergenčního
+intervalu. Hodnoty mimo tento interval musíme vhodně převést do~tohoto intervalu,
+jinak by mohlo dojít k~zacyklení programu.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Řešení problému} \label{reseni}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%=============================================================================
+\subsection{Definiční obor funkcí}\label{rozsah}
+
+Obor vstupních hodnot je omezen nejen definičním oborem funkcí, ale i 
+použitým datovým typem \texttt{double}, který je omezen rozsahem i 
+přesností na~počet platných cifer. Datový typ \texttt{double} 
+také dokáže reprezentovat hodnoty $\infty, -\infty$ a NaN(Not a Number).
+Každá matematická funkce, tedy musí kontrolovat jestli vstupní hodnoty spadají
+do~jejich definičního oboru. S~ohledem na~použitý datový typ je definiční obor
+pro~funkci logaritmus $(0;\texttt{DBL\_MAX}\rangle$, kde \texttt{DBL\_MAX} je
+maximální konečná hodnota datového typu \texttt{double}, obvykle $1.79\cdot10^{308}$. Pro~hyperbolický tangens
+$\left(-(\texttt{DBL\_DIG+REZERVA});\texttt{DBL\_DIG+REZERVA} \right)$, kde \texttt{DBL\_DIG} je počet
+platných cifer datového typu \texttt{double}, obvykle 15. Pro~hodnoty mimo tento interval
+nemá smysl funkce počítat, neboť výsledek by byl vždy 1, případně -1.
+
+%=============================================================================
+\subsection{Výpočet hyperbolického tangensu}
+
+\begin{equation}
+\label{tan1}\tanh{x}=x-\frac{1}{3}x^3+\frac{2}{12}x^5-\frac{17}{315}x^7+\ldots
+\end{equation}
+\begin{equation}
+\label{tan2}\tanh{x}=\frac{\sinh{x}}{\cosh{x}}=
+\frac{x+\frac{x^{3}}{3!}+\frac{x^{5}}{5!}+\frac{x^{7}}{7!}+\ldots}
+     {1+\frac{x^{2}}{2!}+\frac{x^{4}}{4!}+\frac{x^{6}}{6!}+\ldots}
+\end{equation}
+\begin{equation}
+\label{tan3}\tanh{x}=\frac{e^{2x}-1}{e^{2x}+1}
+\end{equation}
+
+Jedna možnost výpočtu hyperbolického tangensu je využití taylorovy řady
+pro~hyperbolický tangens, vzorec~\ref{tan1}.
+Druhou možnost je využít vztahu hyperbolických funkcí, vzorec~\ref{tan2}.
+Třetí možností je vypočítat $e^{2x}$ a použít vzorec~\ref{tan3} vycházející z~definice
+hyperbolického tangensu.
+
+Při~bližším prozkoumání všech možností se ukázalo, že první varianta není pro~výpočet
+příliš vhodná, protože vyjádření dalšího člena posloupnosti
+by bylo příliš složité a neefektivní. Třetí varianta s~ohledem na~omezení datového typu
+\texttt{double} není také vhodná, jelikož u~čísel blížících se nule
+by nebylo dosaženo požadované přesnosti. Druhá varianta se ukázala nejvhodnější,
+protože vyjádření dalšího člena posloupnosti je jednoduché a efektivní. Výhodou také je, že
+uvedené řady pro~hyperbolický sinus a cosinus kovergují pro~$x\in{R}$ narozdíl 
+od~řady pro~hyperbolický tangens, která konverguje pouze 
+pro~$x\in{\left(-\frac{\pi}{2};\frac{\pi}{2} \right) }$.
+Z~těchto důvodů jsem se rozhodl pro~druhou variantu a tu také implementoval.
+%=============================================================================
+\subsection{Výpočet logaritmu}
+
+\begin{equation}
+\label{log1}ln~x=2\left(\frac{x-1}{x+1}+\frac{(x-1)^{3}}{3(x+1)^{3}}+\frac{(x-1)^{5}}{5(x+1)^{5}}+\ldots \right)
+\end{equation}
+
+\begin{equation}
+\label{log2}log_{a}x=\frac{ln~x}{ln~a}
+\end{equation}
+
+\begin{equation}
+\label{log3}ln~xy=ln~x+ln~y
+\end{equation}
+
+\begin{equation}
+\label{log4}ln~x^{n}=n\cdot ln~x
+\end{equation}
+
+Pro~výpočet $\log_{a}{x}$ můžeme použít vzorec~\ref{log2}. Výpočet přirozeného logaritmu
+poté vypočteme pomocí taylorovy řady pro~přirozený logaritmus, vzorec~\ref{log1}.
+Tato řada konverguje pro~$x\in\left(0;\infty \right) $.
+
+Při~bližším prozkoumání této řady zjistíme, že řada v~uvedeném intervalu konverguje
+různě rychle a že nejlépe konverguje v~blízkém okolí bodu $x=1$. Do~tohoto
+okolí můžeme dostat $x$ využitím vzorců~\ref{log3} a~\ref{log4}.
+%=============================================================================
+\subsection{Výpočet váženého aritmetického průměru}
+
+\begin{equation}
+\label{arit}
+\bar{x}=\frac{x_{1}h_{1}+x_{2}h_{2}+\ldots+x_{n}h_{n}}{h_{1}+h_{2}+\ldots+h_{n}}
+=\frac{\sum\limits_{i=1}^n x_{i}h_{i}}{\sum\limits_{i=1}^n h_{i}}
+\end{equation}
+Výpočet aritmetického průměru provedeme pomocí vzorce~\ref{arit}. 
+%=============================================================================
+\subsection{Výpočet váženého kvadratického průměru}
+
+\begin{equation}
+\label{kvad}
+\bar{x}_{k}=\sqrt{\frac{x^{2}_{1}h_{1}+x^{2}_{2}h_{2}+\ldots+x^{2}_{n}h_{n}}{h_{1}+h_{2}+\ldots+h_{n}}}
+=\sqrt{\frac{\sum\limits_{i=1}^n x^{2}_{i}h_{i}}{\sum\limits_{i=1}^n h_{i}}}
+\end{equation}
+Výpočet kvadratického průměru provedeme pomocí vzorce~\ref{kvad}. 
+%=============================================================================
+\subsection{Specifikace testů} \label{testy}
+
+Jelikož uživatel může zadat chybná data -- chybný parametry, nesmyslné
+hodnoty (znaky, slova, apod.), je potřeba tyto stavy
+otestovat a ošetřit.
+
+\paragraph{Test 1:} Chybná parametry $\longrightarrow$ Detekce chyby.
+\begin{verbatim}
+./proj2 --logax text 
+./proj2 --wam text 
+./proj2 
+./proj2 tanh 3 
+./proj2 --text
+\end{verbatim} 
+
+\paragraph{Test 2:} Nesmyslné hodnoty $\longrightarrow$ Detekce chyby, výstup = nan.
+\begin{verbatim}
+./proj2 --tanh 14 <<<"0 12text2 0 text 0 0 12text"
+\end{verbatim} 
+\vspace{1em}\begin{tabular}{l} % ll = 2 sloupce zarovnane: left,left
+očekávaný výstup \\
+\hline
+0.0000000000e+00 \\
+nan \\
+0.0000000000e+00 \\
+nan\\
+0.0000000000e+00 \\
+0.0000000000e+00 \\
+nan \\
+\end{tabular}
+
+\paragraph{Test 3:} Správnost výpočtu $\tanh{x}$ $\longrightarrow$ Předpokládaná správná hodnota.
+\begin{verbatim}
+./proj2 --tanh 14
+\end{verbatim}
+\vspace{1em}\begin{tabular}{ll} % ll = 2 sloupce zarovnane: left,left
+vstup & očekávaný výstup \\
+\hline
+\verb|12.4536| & 9.9999999997e-01 \\
+\verb|-0.234| & -2.2982054821e-01 \\
+\verb|0.234| &   2.2982054821e-01 \\
+\verb|23e-300| & 2.3000000000e-299\\
+\verb|2e303| & 1.0000000000e+00 \\
+\verb|-inf| & -1.0000000000e+00 \\
+\verb|nan| & nan \\
+\verb|0| & 0.0000000000e+00 \\
+\end{tabular}
+
+\paragraph{Test 4:} Správnost výpočtu $\log_{a}{x}$ $\longrightarrow$ Předpokládaná správná hodnota.
+\begin{verbatim}
+./proj2 --logax 14 1.423
+\end{verbatim}
+\vspace{1em}\begin{tabular}{ll} % ll = 2 sloupce zarovnane: left,left
+vstup & očekávaný výstup \\
+\hline
+\verb|13.4536| & 7.3681619227e+00 \\
+\verb|-3532.234| & nan \\
+\verb|23543254.24| & 4.8117693941e+01 \\
+\verb|23e-300| & -1.9492736329e+03\\
+\verb|2e303| & 1.9797084155e+03 \\
+\verb|inf| & inf \\
+\verb|nan| & nan \\
+\verb|0| & -inf \\
+\end{tabular}
+
+\paragraph{Test 5:} Správnost výpočtu aritmetického průměru $\longrightarrow$ Předpokládaná správná hodnota.
+\begin{verbatim}
+./proj2 --wam <<<"1 12 2 2 12.321 1 1803.32"
+\end{verbatim} 
+\vspace{1em}\begin{tabular}{l} % ll = 2 sloupce zarovnane: left,left
+očekávaný výstup \\
+\hline
+1.0000000000e+00 \\
+1.1428571429e+00 \\
+1.8880666667e+00 \\
+nan\\
+\end{tabular}
+
+\paragraph{Test 6:} Správnost výpočtu kvadratického průměru $\longrightarrow$ Předpokládaná správná hodnota.
+\begin{verbatim}
+./proj2 --wqm <<<"1 12 2 2 12.321 1 1803.32"
+\end{verbatim} 
+\vspace{1em}\begin{tabular}{l} % ll = 2 sloupce zarovnane: left,left
+očekávaný výstup \\
+\hline
+1.0000000000e+00 \\
+1.1952286093e+00 \\
+3.3843467218e+00 \\
+nan\\
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Popis řešení} \label{popis}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Při~implementaci jsem vycházel ze~závěrů popsaných v~předchozích kapitolách.
+
+%=============================================================================
+\subsection{Ovládání programu}
+
+Program funguje jako konzolová aplikace, má tedy pouze textové ovládání. Při~spouštění
+programu s~parametr \texttt{-h} vypíše obrazovku s~nápovědou.
+Další možnost spuštění je s~parametrem \texttt{--wam} nebo \texttt{--wqm},
+při~tomto spuštění se počítá vážený aritmetický průměr nebo vážený kvadratický
+průměr. Při spuštění s~parametrem \texttt{--tanh} nebo \texttt{--logax} očekavá
+program ještě druhý parametr, a to přesnost na~počet platných cifer. A v~případě
+výpočtu logaritmu očekává ještě jeden parametr reprezentující základ logaritmu. 
+
+Po~spuštění s~těmito parametry program očekává na~standardním vstupu 
+hodnoty typu \texttt{double} oddělené posloupností bílých znaků.
+Každá hodnota je předána zvolené funkci a výsledek operace je vytisknut
+na standartní výstup v~zadaném formátu.
+
+Výhodou tohoto ovládání je, že program může být použít ve~skriptech
+a~jím produkovaný výsledek může být použit jiným
+programem pro~další výpočet.
+
+%=============================================================================
+\subsection{Volba datových typů}
+
+Pro~uložení hodnot výsledku jsem zvolil datový typ \texttt{double}.
+Pro~uložení hodnot pro~výpočet vážených průměrů slouží struktura \texttt{TAverage},
+která obsahuje čtyři položky typu \texttt{double} pro~sou\-čet hodnot, součet vah, aktualní hodnotu
+a aktuální váhu.
+
+%=============================================================================
+\subsection{Vlastní implementace}
+
+Parametry příkazové řádky zpracovává funkce \texttt{getParams}, která je
+spouštěna jako první ve~funk\-ci \texttt{main}. Načtené parametry se poté
+předají funkci \texttt{calculate}, která v~cyklu pomocí funkce \texttt{scanf}
+načítá vstupní data a pomocí funkce \texttt{testInput} detekuje případné chyby.
+Poté je podle parametrů zavolaná funkce pro výpočet zvolené funkce. Výsledek
+je poté vytisknut pomocí funkce \texttt{printf} ve zvoleném formátě.
+
+Pro~výpočet váženého kvadratického průměru slouží funkce \texttt{wam}, která má jediný
+parametr strukturu \texttt{TAverage}, která obsahuje součet hodnot, součet vah a aktualní hodnotu a váhu.
+Z~těchto hodnot vypočte aritmetický průměr a příslušně změní součet hodnot a vah.
+Velice podobně funguje funkce \texttt{wqm} pro~výpočet kvadratického aritmetického průměru.
+Pro~výpočet hyperbolického tangensu slouží funkce \texttt{mytanh}.
+Výpočet $\log_{a}x$ zajišťuje funkce \texttt{logax}. Funkce prvně vypočítá 
+pomocí funkce \texttt{ln} přirozený logaritmus pro~základ a hodnotu. A tyto hodnoty
+poté podělí podle vzorce~\ref{log1}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Závěr} \label{zaver}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Výsledný algoritmus počítá s~poměrně velkou přesností. Zvolené algoritmy
+počítají co nejefektivněji. Program skončí i pro mezní hodnoty
+v~rozumném čase.
+
+Navržené řešení je přenositelné na všechny platformy, které podporují
+datový typ \texttt{double}. Při~přenosu na~platformu, která tento typ nepodporuje,
+by bylo nutné upravit datové typy.
+
+Program striktně dodržuje formát vstupních a výstupních dat, díko tomu je možné
+využití ve~skriptech nebo spolupráce s~jinými programi.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seznam citované literatury: každá položka je definována příkazem
+% \bibitem{xyz}, kde xyz je identifikátor citace (v textu použij: \cite{xyz})
+\begin{thebibliography}{1}
+
+% jedna citace:
+\bibitem{konver}
+BARTSCH, Hans-Jochen: \emph{Matematické vzorce}. Praha: Mladá fronta, 1996, ISBN 80-204-0607-7.
+
+
+\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% přílohy
+\appendix
+
+\section{Metriky kódu} \label{metriky}
+\paragraph{Počet souborů:} 1 soubor
+\paragraph{Počet řádků zdrojového textu:} 687 řádků
+\paragraph{Velikost statických dat:} 7597B
+\paragraph{Velikost spustitelného souboru:} 12164B (systém Linux, 64 bitová
+architektura, při překladu bez ladicích informací)
+
+
+\end{document}

@@ -1,0 +1,10 @@
+<Users>
+  <User>
+    <login>admin</login>
+    <password>12345</password>
+  </User>
+  <User>
+    <login>hugo</login>
+    <password>kokoska</password>
+  </User>
+</Users>

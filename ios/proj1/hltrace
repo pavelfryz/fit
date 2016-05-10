@@ -1,0 +1,73 @@
+#!/bin/sh
+
+if [ $# -eq 1 -a "$1" = "-h" ];then
+echo 'hltrace zvyrazni syntax stopy od strace.
+Pouziti: hltrace [volby] <stopa.strace >stopa.html
+Volby:
+  -s SYSCALL  Specialne zvyrazni volani SYSCALL.'
+exit 0  
+elif [ $# -eq 2 -a "$1" = "-s" ];then
+syscall=$2
+elif [ $# -gt 0 ];then
+echo "hltrace: nezname parametry.
+Vice informaci ziskate prikazem 'hltrace -h'" >&2
+exit 1
+fi
+
+echo '<html>
+<style>
+.pid { color:darkred; }
+.ts { color:navy; }
+.number { color:red; }
+.const { color:green; }
+.string { color:blue; }
+.hlcall { text-decoration:none; font-weight:bold; color:black; }
+.call { text-decoration:none; color:olive; }
+</style>
+<body><pre>'
+
+sed -e 's/\&/\&amp;/g' \
+	-e 's/</\&lt;/g' \
+	-e 's/>/\&gt;/g' \
+	-e 's/"\([^"\]*\(\\.\)*\)*"/<span class="string">&<\/span>/g' \
+	-e 's/^\([0-9][0-9]*\)\{0,1\}\([ ]*\)\([0-9][0-9]*\.[0-9]\{6\}\)\{0,1\}/<span class="pid">\1<\/span>\2<span class="ts">\3<\/span>/' \
+	-e 's/<span class="[^"]*"><\/span>//g' \
+	-e 's/\([[:lower:]_][[:lower:]_[:upper:]0-9]*\)(/<a href="http:\/\/www.kernel.org\/doc\/man-pages\/online\/pages\/man2\/\1.2.html" class="call">\1<\/a>(/' \
+	-e "s/class=\"call\">\\($syscall\\)<\\/a>/class=\"hlcall\">\\1<\\/a>/" \
+	-e 's/= \(0x[0-9a-fA-F]\{1,\}\)\([^=]*$\)/= <span class="number">\1<\/span>\2/' \
+	-e 's/= \([-]\{0,1\}[[:digit:]][[:digit:]]*\)\([^=]*$\)/= <span class="number">\1<\/span>\2/'\
+	-e 's/\([ (]\)\(0x[0-9a-fA-F]\{1,\}\)\([,)]\)/\1<span class="number">\2<\/span>\3/g' \
+	-e 's/\([ (]\)\([-]\{0,1\}[[:digit:]][[:digit:]]*\)\([,)]\)/\1<span class="number">\2<\/span>\3/g' \
+	-e 's/\([[:upper:]][[:upper:]_0-9]*\)\([^[:lower:]]\)/<span class="const">\1<\/span>\2/g'\
+|gawk '
+{
+	line=$0;
+	while(match(line,/>\"([^\\\"]*(\\.)*("[^<])*)*\"</))
+	{
+        outOfQuates = substr(line,1,RSTART-1);
+        inQuates = substr(line,RSTART,RLENGTH);
+        line = substr(line,RSTART+RLENGTH);
+        while(match(outOfQuates,/(\[[^\]]*\])|({[^}]*})/))
+	    {
+        	before = substr(outOfQuates,1,RSTART-1);
+        	pattern = substr(outOfQuates,RSTART,RLENGTH);
+        	outOfQuates = substr(outOfQuates,RSTART+RLENGTH);
+        	pattern=gensub(/<span class=\"number\">([^<]*)<\/span>/,"\\1","g",pattern);
+        	printf("%s%s", before, pattern);
+        }
+        gsub(/<[^>]*>/,"",inQuates);
+        printf("%s%s", outOfQuates, inQuates);
+    }
+    while(match(line,/(\[[^\]]*\])|({[^}]*})/))
+	{
+      	before = substr(line,1,RSTART-1);
+      	pattern = substr(line,RSTART,RLENGTH);
+      	line = substr(line,RSTART+RLENGTH);
+      	pattern=gensub(/<span class=\"number\">([^<]*)<\/span>/,"\\1","g",pattern);
+       	printf("%s%s", before, pattern);
+    }
+    printf("%s\n",line);
+}'
+
+echo '</pre></body></html>'
+exit 0

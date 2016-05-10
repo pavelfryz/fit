@@ -1,0 +1,97 @@
+\section{Implementace protokolu Denning-Sacco}
+V~tomto příkladě si vyzkoušíte implementaci a~verifikaci protokolu \emph{Denning-Sacco}.
+
+\begin{enumerate}
+  %%%>==== 1.krok
+  \item Po spuštění nástroje zadávajte kód protokolu v~hlavní editovací části okna.
+
+  %%%>==== 2.krok
+  \item Na~úvod deklarujeme funkci pro symetrický klíč. Protože se jedná o~tajný
+  klíč označíme funkci klíčovým slovem \texttt{secret}. Dále deklarujeme nový typ
+  pro distribuovaný klíč \texttt{Key} a~typ \texttt{Timestamp} pro časovou značku.
+  \begin{lstlisting}[name=DenningSacco]
+secret k: Function;
+usertype Key;
+usertype Timestamp;
+  \end{lstlisting}
+
+  %%%>==== 3.krok
+  \item Dále deklarujeme protokol klíčovým slovom \texttt{protocol} nasledovaný jeho jménem a~jmény účastníků.
+  \begin{lstlisting}[name=DenningSacco]
+protocol DenningSacco(A,B,S)
+{
+  \end{lstlisting}
+
+  %%%>==== 4.krok
+  \item Následuje definice jednotlivých uživatelů. Definice účastníka začíná klíčovým slovem \texttt{role}.
+  Prvně definujeme účastníka \texttt{A} a~deklarujeme lokální proměnné pro časovou známku \texttt{T},
+  pro obdržený klíč \texttt{Kab} a~ticket pro přeposílanou zprávu \texttt{M}.
+  \begin{lstlisting}[name=DenningSacco]
+  role A
+  {
+    var T: Timestamp;
+    var M: Ticket;
+    var Kab: Key;
+  \end{lstlisting}
+
+  %%%>==== 5.krok
+  \item Dále definujem příchozí a~odchozí zprávy účastníka \texttt{A}.
+  Příchozí a~odchozí zpráva začíná klíčovým slovem \texttt{recv}, respektive \texttt{send} následované označením zprávy.
+  V~kulatých závorkách poté následuje od koho zpráva pochází, příjemce zprávy a~text zprávy.
+  \begin{lstlisting}[name=DenningSacco]
+    send_1(A,S,(A,B));
+    recv_2(S,A,{B,Kab,T,M}k(A,S));
+    send_3(A,B,M);
+  \end{lstlisting}
+  kde \texttt{\{x\}pk(A,S)} značí zprávu \texttt{x} zašifrovanou sdíleným klíčem \texttt{A} a~\texttt{S}.
+
+  %%%>==== 6.krok
+  \item Nakonec přidáme bezpečnostní požadavky protokolu. V~našem případě se jedná o~utajení distribuovaného klíče \texttt{Kab}
+  a~neinjektivní synchronizaci a~agreement.
+  \begin{lstlisting}[name=DenningSacco]
+    claim_A1(A,Secret,Kab);
+    claim_A2(A,Nisynch);
+    claim_A3(A,Niagree);
+  }
+  \end{lstlisting}
+
+  %%%>==== 7.krok
+  \item Obdobně přidáme i~účastníka \texttt{B}.
+  \begin{lstlisting}[name=DenningSacco]
+  role B
+  {
+    var T: Timestamp;
+    var Kab: Key;
+    recv_3(A,B,{Kab,A,T}k(B,S));
+    claim_B1(B,Secret,Kab);
+    claim_B2(B,Nisynch);
+    claim_B3(B,Niagree);
+  }
+  \end{lstlisting}
+
+  %%%>==== 8.krok
+  \item Dále přidáme server \texttt{S}.
+  \begin{lstlisting}[name=DenningSacco]
+  role S
+  {
+    const Kab: Key;
+    const T: Timestamp;
+    recv_1(A,S,(A,B));
+    send_2(S,A,{B,Kab,T,{Kab,A,T}k(B,S)}k(A,S));
+  }
+}
+  \end{lstlisting}
+
+  %%%>==== 9.krok
+  \item Nakonec přidáme nedůvěryhodného klienta, jehož sdílený klíč byl zpronevěřen útočníkem.
+  \begin{lstlisting}[name=DenningSacco]
+const C,D: Agent;
+untrusted C;
+compromised k(C,D);
+compromised k(D,C);
+  \end{lstlisting}
+
+  %%%>==== 10.krok
+  \item Spuťte verifikaci protokolu(v menu \texttt{Verify->Verify protocol}), a~projděte výsledky verifikace. Nechte
+  si zobrazit případný útok.
+\end{enumerate}

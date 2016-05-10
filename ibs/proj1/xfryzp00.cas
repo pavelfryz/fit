@@ -1,0 +1,30 @@
+%deklarace protokolu
+protocol WooLamPiF;
+
+%deklarace ucastniku, noncu a sdilenych klicu
+identifiers
+A,B,S : user;
+Nb : number;
+Kas,Kbs : symmetric_key;
+
+%popis protokolu
+messages
+1. A -> B : A
+2. B -> A : Nb
+3. A -> B : {A, B, Nb}Kas
+4. B -> S : {A, B, Nb, {A, B, Nb}Kas}Kbs
+5. S -> B : {A, B, Nb}Kbs
+
+%definice pocatecnich znalosti jednotlivych subjektu
+knowledge
+A: A,B,S,Kas;
+B: B,S,Kbs;
+S: S,A,B,Kas,Kbs;
+
+%prirazeni instanci
+session_instances
+[A:alice,B:bob,S:server,Kas:key1,Kbs:key2];
+
+%cil protokolu
+goal
+A authenticates B on Nb; %autentizovat A vuci B na noncu Nb

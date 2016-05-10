@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Navod</title>
+</head>
+<body>
+<h1>BDOS - browser desktop operation system</h1>
+BDOS je okení systém pro webové stránky. Systém umožňuje vytvářet virtuální plochy přidáním atributu třídy desktop 
+k elementu div. V rámci každé plochy pak umožňuje přesouvání a měnění velikosti jednotlivých oken(element div), které jsou
+označeny atributem třídy window.
+
+<h2>Použití</h2>
+Do webové stránky importujte skript bdos.js a kaskádový styl bdos.css. Pro vytvoření virtuální plochy
+vytvořte div s atributem třídy desktop a do něj vložte další elementy div s atributem třídy window, u oken
+dále můžete přidat atribut data-title pro volbu titulku okna. Nastavení počáteční velikost virtuální plochy a jednotlivých
+oken můžete vidět u dema, konkrétně pak v souboru demo.css.
+
+<h2>Modifikace</h2>
+Minimální velikost okna můžete nastavit pomocí proměných BDOS_MIN_WIDTH a BDOS_MIN_HEIGHT. Jednotlivé
+kontrolní oblasti, jako je titulek okna pro přesun okna, tlačítko pro maximalizaci okna, levý okraj, pravý okraj, 
+horní okraj, dolní okraj a jednotlivé rohy okna, je možné upravit pomocí kaskádových stylů a změnit tak
+velikost a umístění kontrolní oblasti. Změnu oblastí můžete vidět v souboru demo2.css, pro aktivaci stylu odkomentujte
+9 řádek v demo.html. 
+</body>
+</html> 

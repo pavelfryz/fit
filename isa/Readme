@@ -1,0 +1,37 @@
+sip_monitor (projekt do predmetu ISA)
+====================================
+sip_monitor je jednoducha aplikace, ktera sleduje sitovi
+provoz na zadanem rozhrani a vypisuje informace
+o probehnutych hovorech SIP protokolu. Pri spusteni
+pouze s parametrem -i vypisuje pouze informace o zahajeni hovoru
+a ukonceni hovoru.
+
+Pouziti
+-------
+sip_monitor -i <interface> [-a|-c] [-f <id>] [-t <id>] [-u <id>]
+  -i <interface> Nastavi rozhrani, na kterem se zachycuji pakety
+  -a Vypisuje navic informace o neuskutecnenych hovorech
+  -c Vypisuje pouze informace o ukonceni hovoru
+  -f <id> Vypisuje hovory od zadaneho uzivatele
+  -t <id> Vypisuje hovory pro zadaneho uzivatele
+  -u <id> Vypisuje hovory od nebo pro zadaneho uzivatele
+  <id> Jako identifiktor slouzi SIP-URI bez casti "sip:"
+  
+Popis jednotlivych souboru
+--------------------------
+  Readme tento soubor
+  Makefile GNU makefile
+  manual.pdf dokumentace k aplikaci, navod k pouziti
+  sip_monitor.cpp zdrojovy kod aplikace
+  sip_monitor.h hlavickovy soubor s definici struktur a deklaraci funkci
+  
+Sestaveni
+---------
+Aplikaci sestavite prikazem 'make'
+
+Priklady spusteni
+----------------
+./sip_monitor -i em0
+./sip_monitor -i em0 -c 
+./sip_monitor -i em0 -a
+./sip_monitor -i em0 -u E646657195201@talk4free.com -f 9055551212@talk4free.com

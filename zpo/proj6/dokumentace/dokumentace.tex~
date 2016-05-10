@@ -1,0 +1,336 @@
+\documentclass[12pt, a4paper]{article}[8.4.2015]
+
+\usepackage[czech]{babel}
+\usepackage[latin2]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{graphicx}
+\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>} \urlstyle{tt}}
+
+
+\usepackage[left=2cm, top=3cm, text={17cm, 24cm}]{geometry}
+
+\usepackage{subcaption}
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\textsc{\Huge Vysoké uèení technické v Brnì \\}
+\textsc{\huge Fakulta informaèních technologií \\}
+\end{center}
+\bigskip
+\begin{figure}[h]
+\begin{center}
+\includegraphics{FIT_logo_CZ.eps}
+\end{center}
+\end{figure}
+\bigskip
+\begin{center}
+\huge{Projekt do pøedmìtu ZPO \\}
+\huge{Adaptivní prahování obrazu \\}
+\end{center}
+\vfill
+\large{Pavel Frýz \\ xfryzp00@stud.fit.vutbr.cz}
+\end{titlepage}
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Úvod}
+Cílem projektu do pøedmìtu ZPO (Zpracování obrazu) bylo vytvoøit aplikaci pro adaptivní
+prahování obrazu. Adaptivní prahování by mìlo pracovat tak, ¾e se provede analýza v malém okolí 
+prahovaného bodu a na základì nìj se rozhodne o nejlep¹ím prahu.
+
+\section{Popis øe¹ení}
+Rozhodl jsem se projekt implementovat jako konzolovou aplikaci. Aplikace je implementována
+v jazyce c++, s vyu¾itím knihovny opencv, která je vyu¾ita pro otevírání a ukládání
+souborù s obrázky. V jedné verzi programu je dále vyu¾ita pro výpoèet mediánu,
+prùmìru, maxima a minima v regionu. Ve druhé verzi jsou tyto metody implementovány v aplikaci.
+
+Z metod pro volbu prahu, které jsou popsány v \cite{vat, atc, lcm}, byly vybrány a implementovány tyto
+metody prùmìr, medián, midgray, bernsen a niblack.
+
+\subsection{Prùmìr}
+Pøi této metodì se provede aritmetický prùmìr hodnot v oknì kolem pixelu, výsledná hodnota je poté dána podle:
+\[ 
+vystup =
+\left \{
+  \begin{tabular}{ll}
+  1 & ,pro \(pixel>prumer-c\) \\
+  0 & ,pro \(pixel\leq prumet-c\)  \\
+  \end{tabular}
+\right .
+\]
+
+
+\subsection{Medián}
+Pøi této metodì se najde medián hodnot v oknì, výsledná hodnota je poté dána podle:
+\[ 
+vystup =
+\left \{
+  \begin{tabular}{ll}
+  1 & ,pro \(pixel>median-c\) \\
+  0 & ,pro \(pixel\leq median-c\)  \\
+  \end{tabular}
+\right .
+\]
+
+
+\subsection{Midgray}
+Pøi této metodì se vypoèíte støední hodnota jako prùmìr maxima a minima, která udává hodnotu prahu,
+výsledné pixel je potom:
+\[ 
+vystup =
+\left \{
+  \begin{tabular}{ll}
+  1 & ,pro \(pixel>stred-c\) \\
+  0 & ,pro \(pixel\leq stred-c\)  \\
+  \end{tabular}
+\right .
+\]
+
+
+\subsection{Niblack}
+Tato metoda je podobná prùmìru, ale navíc pou¾ívá smìrodatnou odchylku. Hodnota je definována:
+\[ 
+vystup =
+\left \{
+  \begin{tabular}{ll}
+  1 & ,pro \(pixel>prumer+k*odchylka-c\) \\
+  0 & ,pro \(pixel\leq prumer+k*odchylka-c\) \\
+  \end{tabular}
+\right .
+\]
+
+\subsection{Bernsen}
+Tato metoda pou¾ívá pøi rozhodování, který práh pou¾it hodnotu lokálního kontrastu, buï se pou¾ije jako
+práh støední hodnota, jako u metody midgray nebo hodnota globálního prahu, výsledná hodnota pixelu
+je dána:
+\[ 
+vystup =
+\left \{
+  \begin{tabular}{ll}
+  1 & ,pro \(pixel>stred\) a \(kontrast>prah_{C}\)  \\
+  1 & ,pro \(pixel>prah_{G}\) a \(kontrast\leq prah_{C}\)  \\
+  0 & ,pro \(pixel\leq stred\) a \(kontrast>prah_{C}\)\\
+  0 & ,pro \(pixel\leq prah_{G}\) a \(kontrast\leq prah_{C}\)\\
+  \end{tabular}
+\right .
+\]
+
+
+\section{Ovládání programu}
+Jak ji¾ bylo øeèeno, aplikace je realizována jako konzolová aplikace, díky tomu je mo¾né ji vyu¾ít
+pøi hromadném zpracování ve formì skriptu. Pomocí parametrù v pøíkazové øádce se zadá jméno vstupního
+souboru, následované jménem výstupního souboru bez koncovky, koncovka \textit{.png} se pøidá automaticky.
+Za tìmito parametry následuje èíslo, které urèuje zvolenou metodu. Dále je volitelný parametr, který udává velikost
+pou¾itého okna pøi prahování, toto èíslo urèuje polomìr okna, výsledné okno je tedy (2*r+1)x(2*r+1). Poté následuje
+jeden a¾ dva parametry podle zvolené metody.
+\section{Výsledky}
+Prahování bylo testována na souborech s textem a notovým zápisem. Vzorové obrázky, vèetnì obrázku po prahování jednotlivými metodami
+mù¾ete vidìt na obrázku \ref{prahtext} a \ref{prahnot}.
+
+Metody byly testovány i na umìle vytvoøeném obrázku, který byl vytvoøen pøidáním
+gradientu do pùvodního obrazu. Do takto vytvoøeného obrazu byl dále pøidán
+gaussùv ¹um a ¹um typu pepø a sùl. Pùvodní a vytvoøené obrazy mù¾ete vidìt na obrázku \ref{umimg}.
+Poté se provedlo prahování jednotlivými metodami a provedlo se porování s pùvodním
+obrázkem. Na obrázku \ref{gradimg} mù¾ete vidìt výsledky prahování obrazu pouze s pøidaným gradientem,
+na obrázku \ref{gaussimg} výsledky s gaussovým ¹umem a na obrázku \ref{pepperimg} se ¹umem typu pepø a sùl.
+V tabulce \ref{table1} najdete shrnutí porovnání vyprahovaných obrázkù s pùvodním obrazem. Jak mù¾ete vidìt
+v pøípadì, kdy obrázek obsahuje pouze gradient není mezi metodami výrazný rozdíl, vyjma metody bernsen, co¾ 
+je dáno tím, ¾e v tmavých oblastech, kde není dostateèný kontrast je pou¾it globální práh a výsledné hodnoty 
+jsou èerné namísto bílé. V pøípadì obrázku s gaussovým ¹umem mù¾eme vidìt ji¾ výrazné rozdíly, kdy nejlépe 
+dopadla volba prahu pomocí mediánu a metodou niblack. Ostatní metody úspì¹nì vyprahují okolí notového
+zápisu, ale v oblastech, která byla pùvodnì bílá vzniká prahováním ¹um. Pøi prahování obrázku 
+se ¹umem typu pepø sùl opìt nejlépe dopadl medián a metoda niblack, kdy poèet rozdílných pixelù
+byl kolem 10\%, co¾ odpovídá procentu za¹umìných pixelù ¹umem pepø a sùl pùvodního obrázku. 
+Nejhùøe dopadly metody midgray a bernsen, které se na tento typ obrázku nehodí, jeliko¾ oba
+pou¾ívají pro práh prùmìr minima a maxima okna, co¾ v 8-bitovém obraze za¹umìným ¹umem typu pepø a sùl
+jsou skoro v¾dy hodnoty 0 a 255, výdledný práh je tedy a¾ na výjimky 127.
+
+\begin{table}
+  \centering
+  \begin{tabular}{| l || l | l | l | l | l |}
+    \hline
+             & Prùmìr & Medián & Midgray & Bernsen & Niblack \\ \hline \hline
+    Gradient   & 0 & 0.44 & 0 & 21.46 & 0 \\ \hline
+    Gauss      & 33.81 & 0.37 & 42.54 & 46.10 & 0.41 \\ \hline
+    Pepø a sùl & 19.81 &10.17&31.52&37.95&9.77 \\ \hline
+  \end{tabular}
+  \caption{Poèet rozdílných pixelù [\%]}
+  \label{table1}
+\end{table}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{.24\linewidth}
+\includegraphics[width=\linewidth]{img/clean.png}
+\caption{Originál}
+\end{subfigure}
+\begin{subfigure}[b]{.24\linewidth}
+\includegraphics[width=\linewidth]{img/grad.png}
+\caption{Gradien}
+\end{subfigure}
+\begin{subfigure}[b]{.24\linewidth}
+\includegraphics[width=\linewidth]{img/gauss.png}
+\caption{Gauss}
+\end{subfigure}
+\begin{subfigure}[b]{.24\linewidth}
+\includegraphics[width=\linewidth]{img/saltpepper.png}
+\caption{Pepø a sùl}
+\end{subfigure}
+\caption{Umìle vytvoøené obrazy}
+\label{umimg}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/meangrad.png}
+\caption{Mean}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/mediangrad.png}
+\caption{Median}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/midgraygrad.png}
+\caption{Midgray}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/bernsengrad.png}
+\caption{Bernsen}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/niblackgrad.png}
+\caption{Niblack}
+\end{subfigure}
+\caption{Výsledky prahování - Gradient}
+\label{gradimg}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/meangauss.png}
+\caption{Mean}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/mediangauss.png}
+\caption{Median}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/midgraygauss.png}
+\caption{Midgray}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/bernsengauss.png}
+\caption{Bernsen}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/niblackgauss.png}
+\caption{Niblack}
+\end{subfigure}
+\caption{Výsledky prahování - Gauss}
+\label{gaussimg}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/meansaltpepper.png}
+\caption{Mean}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/mediansaltpepper.png}
+\caption{Median}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/midgraysaltpepper.png}
+\caption{Midgray}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/bernsensaltpepper.png}
+\caption{Bernsen}
+\end{subfigure}
+\begin{subfigure}[b]{.19\linewidth}
+\includegraphics[width=\linewidth]{img/niblacksaltpepper.png}
+\caption{Niblack}
+\end{subfigure}
+\caption{Výsledky prahování - Pepø a sùl}
+\label{pepperimg}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/text.png}
+\caption{Originál}
+\end{subfigure}
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/meantext.png}
+\caption{Mean}
+\end{subfigure}
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/mediantext.png}
+\caption{Median}
+\end{subfigure}
+
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/midgraytext.png}
+\caption{Midgray}
+\end{subfigure}
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/bernsentext.png}
+\caption{Bernsen}
+\end{subfigure}
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/niblacktext.png}
+\caption{Niblack}
+\end{subfigure}
+\caption{Výsledek prahování textu}
+\label{prahtext}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/noty.jpg}
+\caption{Originál}
+\end{subfigure}
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/meannoty.png}
+\caption{Mean}
+\end{subfigure}
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/mediannoty.png}
+\caption{Median}
+\end{subfigure}
+
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/midgraynnoty.png}
+\caption{Midgray}
+\end{subfigure}
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/bernsennoty.png}
+\caption{Bernsen}
+\end{subfigure}
+\begin{subfigure}[b]{.32\linewidth}
+\includegraphics[width=\linewidth]{img/niblacknoty.png}
+\caption{Niblack}
+\end{subfigure}
+\caption{Výsledek prahování notové osnovy}
+\label{prahnot}
+\end{figure}
+
+\newpage
+
+\bibliographystyle{czechiso}
+\bibliography{dokumentace}
+
+
+\end{document}

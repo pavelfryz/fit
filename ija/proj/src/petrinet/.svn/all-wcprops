@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/ija-svn/grp011/!svn/ver/24/projekt/src/petrinet
+END
+Token.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/ija-svn/grp011/!svn/ver/15/projekt/src/petrinet/Token.java
+END
+Place.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/ija-svn/grp011/!svn/ver/23/projekt/src/petrinet/Place.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/ija-svn/grp011/!svn/ver/24/projekt/src/petrinet/package-info.java
+END
+Arc.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/ija-svn/grp011/!svn/ver/24/projekt/src/petrinet/Arc.java
+END
+BaseTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/ija-svn/grp011/!svn/ver/24/projekt/src/petrinet/BaseTransition.java
+END
+IntTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/ija-svn/grp011/!svn/ver/22/projekt/src/petrinet/IntTransition.java
+END
+PetriNet.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/ija-svn/grp011/!svn/ver/23/projekt/src/petrinet/PetriNet.java
+END
+IntToken.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/ija-svn/grp011/!svn/ver/23/projekt/src/petrinet/IntToken.java
+END
+XMLParse.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/ija-svn/grp011/!svn/ver/24/projekt/src/petrinet/XMLParse.java
+END
+ExprException.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/ija-svn/grp011/!svn/ver/23/projekt/src/petrinet/ExprException.java
+END

@@ -1,0 +1,19 @@
+<ipk-projekt-3>
+<autor>Pavel Frýz</autor>
+<login>xfryzp00@stud.fit.vutbr.cz</login>
+<datum>29.04.2012</datum>
+<soubory>
+<soubor jmeno="udt.h" autor="Ondrej Rysavy"/>
+<soubor jmeno="rdtclient.c" autor="Pavel Fryz"/>
+<soubor jmeno="rdtserver.c" autor="Pavel Fryz"/>
+<soubor jmeno="Makefile" autor="Pavel Fryz"/>
+</soubory>
+<protokol>
+Pro zajisteni spolehlive prenosu dat je pouzita metoda
+Go-Back-N, kde kliente posila zretezene pakety a
+server posila potvrzeni prichozich paketu. V hlavicce
+protokolu je pridan element id, ktery urcuje poradi paketu.
+V pripade odpovedi serveru, id oznacuje ocekavany paket a
+potvrzuje prijeti vsech paketu pred timto paketem.
+</protokol>
+</ipk-projekt-3>

@@ -1,0 +1,143 @@
+/*set frame and background color of desktop*/
+.desktop {
+	position: relative;
+	border: 2px solid #3C3C3C;
+	background: #DEDED5;
+	overflow:hidden;
+}
+
+/*set frame and background color of window*/
+.window {
+	position: absolute;
+	border: 2px solid #EA4F3B;
+	background: white;
+}
+
+/*set height and background color of title bar
+ * when changing height it is recommended to change
+ * contnet position accordingly */
+.title{
+	position: absolute;
+	width: 100%;
+	height: 20px;
+	background: #EA4F3B;
+	top: 0;
+	left: 0;
+	color: white;
+	overflow:hidden;
+	
+	cursor: move;
+}
+
+/* set image and size of button for maximization/minimization */
+.minmax {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 0;
+	right: 0;
+	background: #EA4F3B url("up.png") no-repeat center;
+	cursor: pointer;
+}
+
+/* change maximize/minimize button when maximized */
+[data-fs='true']>div>.minmax {
+	background: #EA4F3B url("down.png") no-repeat center;
+}
+
+/* size of top edge for resizing */
+.top {
+	position: absolute;
+	width: 100%;
+	height: 4px;
+	top: -2px;
+	cursor: n-resize;
+}
+
+/* size of bottom edge for resizing */
+.bottom {
+	position: absolute;
+	width: 100%;
+	height: 4px;
+	bottom: -2px;
+	cursor: s-resize;
+}
+
+
+/* size of left edge for resizing */
+.left {
+	position: absolute;
+	width: 4px;
+	height: 100%;
+	left: -2px;
+	cursor: w-resize;
+}
+
+/* size of right edge for resizing */
+.right {
+	position: absolute;
+	width: 4px;
+	height: 100%;
+	top: -2px;
+	right: -2px;
+	cursor: e-resize;
+}
+
+/* size of top left corner for resizing */
+.topleft {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	top: -2px;
+	left: -2px;
+	cursor: nw-resize;
+}
+
+/* size of top right corner for resizing */
+.topright {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	top: -2px;
+	right: -2px;
+	cursor: ne-resize;
+}
+
+/* size of bottom left corner for resizing */
+.bottomleft {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	bottom: -2px;
+	left: -2px;
+	cursor: sw-resize;
+}
+
+/* size of bottom right corner for resizing */
+.bottomright {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	bottom: -2px;
+	right: -2px;
+	cursor: se-resize;
+}
+
+/* wrapper for correct positioning, dont change */
+.workplace{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+/*set content position, top should be same as height of title*/
+.content{
+	position: absolute;
+	width: 100%;
+	overflow: auto;
+	top: 20px;
+	left: 0;
+	bottom: 0;
+}

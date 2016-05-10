@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GNet>
+  <name></name>
+  <description></description>
+  <GTransition id="0" x="293" y="211">
+    <executable>false</executable>
+    <Guard></Guard>
+    <Expr>x=5</Expr>
+  </GTransition>
+  <GTransition id="1" x="292" y="69">
+    <executable>false</executable>
+    <Guard>y&gt;1&amp;x&gt;=5</Guard>
+    <Expr>z=x+y</Expr>
+  </GTransition>
+  <GPlace id="0" x="110" y="210">
+    <IntToken value="4"/>
+    <IntToken value="5"/>
+    <IntToken value="6"/>
+  </GPlace>
+  <GPlace id="1" x="450" y="142"/>
+  <GPlace id="2" x="108" y="68">
+    <IntToken value="1"/>
+    <IntToken value="2"/>
+    <IntToken value="3"/>
+  </GPlace>
+  <GArc orientation="toTransition">
+    <place id="0"/>
+    <transition id="0"/>
+    <label>4</label>
+  </GArc>
+  <GArc orientation="toPlace">
+    <place id="1"/>
+    <transition id="0"/>
+    <label>x</label>
+  </GArc>
+  <GArc orientation="toTransition">
+    <place id="0"/>
+    <transition id="1"/>
+    <label>x</label>
+  </GArc>
+  <GArc orientation="toPlace">
+    <place id="1"/>
+    <transition id="1"/>
+    <label>z</label>
+  </GArc>
+  <GArc orientation="toTransition">
+    <place id="2"/>
+    <transition id="1"/>
+    <label>y</label>
+  </GArc>
+</GNet>

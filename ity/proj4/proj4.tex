@@ -1,0 +1,39 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, left=2cm, text={17cm, 24cm}]{geometry}
+\usepackage{url}
+
+\begin{document}
+\pagestyle{empty}
+\LaTeX je systém pro sazbu textu, který obsahuje sadu nástrojů
+pro produkci technických a~vědeckých dokumentů. Poprvé byl
+\LaTeX představen Leslie Lamportem v~roce 1985, v~současnosti je
+spravován a~vyvíjen tvůrčí skupinou \LaTeX3\cite{latexproj}.
+Systém je založen na nástroji \TeX, který vytvořil profesor
+Donald E. Knuth. Podle tvůrce nápad na vytvoření \TeX u vznikl
+1.\,února 1977, kdy Knuth náhodouviděl výstup ze sázecího stroje
+s~vysokým rozlišením\cite{digtyp}.
+Zdrojové soubory mají obvykle příponu .tex a~mohou být vytvořeny v~libovolném
+textovém editoru. Překladem vstupních souborů vzniká soubor s~příponou .dvi(device independent),
+výstup by měl být nezávislý na výstupním zařízení, kterým může být například tiskárna nebo obrazovka
+počítače\cite{vsbbenes}.
+Zdrojový soubor se skládá z~preambule a textové části. V~povinném úvodním
+příkazu se musí určit třída dokumentu, která určuje styl sazby.
+Textová část je ohraničena příkazy \verb|\begin{document}| a~\verb|\end{document}|\cite{rybicka}.
+
+Při sazbě textu musíme dodržovat určitá typografická pravidla\cite{typomil}. Musíme si taky
+rozmyslet jestli je \LaTeX vhodné použít na sazbu daného dokumentu\cite{wwfu}. Pro výuku
+\LaTeX u vznikly jak knihy, tak také články na internetu a~v~odborných publikacích\cite{linuxj,latesec}
+a~bakalalářských prací\cite{simek}.
+
+Pro sazbu bibliografických citací lze použít nástroj Bib\TeX a~styl czplain.bst\cite{pysny}, pomocí
+kterého byl vysázen i~tento dokument.
+%\cite{cj97}% \cite{repr}
+
+\bibliographystyle{czplain}
+\renewcommand{\refname}{Literatura}
+\bibliography{literatura}
+
+\end{document}

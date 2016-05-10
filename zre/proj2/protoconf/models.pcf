@@ -1,0 +1,23 @@
+<BEGINproto_config_file>
+
+<COMMENT>
+   This PCF produces a single stream, 4 mixture prototype system
+   Created by Jan for ano-ne experiments. Vector size changed to 
+   39.
+
+<BEGINsys_setup>
+
+hsKind: P
+covKind: D
+nStates: 5
+nStreams: 1
+sWidths: 39
+mixes: 1
+parmKind: MFCC_E_D_A
+vecSize: 39
+outDir: proto
+hmmList: lists/models
+
+<ENDsys_setup>
+
+<ENDproto_config_file>

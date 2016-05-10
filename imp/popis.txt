@@ -1,0 +1,24 @@
+Popis:
+Budik vyuzivajici platformu FITkit, zobrazeny na VGA display.
+Budik umoznuje nastaveni budiku v 24 hodinovem cyklu. Pro indikaci
+dne a noci slouzi ikona slunce a mesice. Den zacina v 7:00, noc v 19:00.
+Zvoneni je indikovano blikajici diodou D6. Aktualni cas se take zobrazuje
+na LCD display FITkitu.
+
+Ovladani:
+-nastaveni hodin
+  stiskem klavesy 'A' se posune cas o hodinu
+  stiskem klavesy 'B' se posune cas o minutu
+  stiskem klacesy '*' se resetuji sekundy na 0
+-nastaveni budiku
+  stiskem klavesy 'C' se posune cas budiku o hodinu
+  stiskem klavesy 'D' se posune cas budiku o minutu
+  stiskem klavesy '#' se budik vypne/zapne
+-zruseni alarmu probehne jakoukoliv klavesou
+
+Implementace:
+K reseni byly vyuzity dema vga_static a keyb_lcd. Pro vykresleni rucicek
+byl pouzit Bresenhamuv algoritmus. Aktualizace casu vyuziva preruseni casovace,
+ktere je vyvolano jednou za sekundu. V obsluze preruseni se zvysi cas o sekundu a
+nastavi priznak vykreslovani. Prekreslovani pote probiha ve funkci main na zaklade
+tohoto priznaku.

@@ -1,0 +1,32 @@
+SUMMARY
+  SAFE
+
+DETAILS
+  STRONGLY_TYPED_MODEL
+  BOUNDED_NUMBER_OF_SESSIONS
+  BOUNDED_MESSAGE_DEPTH
+
+PROTOCOL
+  WooLamPiF.if
+
+GOAL
+  %% see the HLPSL specification..
+
+BACKEND
+  SATMC
+
+COMMENTS
+
+STATISTICS
+  attackFound    false   boolean
+  stopConditionReached   true  boolean
+  fixedpointReached  6   steps
+  stepsNumber    6   steps
+  atomsNumber    0   atoms
+  clausesNumber    0   clauses
+  encodingTime     0.02  seconds
+  solvingTime    0   seconds
+  if2sateCompilationTime 0.11  seconds
+
+ATTACK TRACE
+  %% no attacks have been found..

@@ -1,0 +1,751 @@
+#!MLF!#
+"data/d/auto9.rec"
+0 6100000 AUTO -3758.216064
+.
+"data/a/stres-19.rec"
+0 14700000 STRES -8512.950195
+.
+"data/a/pocitac-18.rec"
+0 16400000 POCITAC -9503.879883
+.
+"data/c/auto-19.rec"
+0 12100000 AUTO -7117.461426
+.
+"data/b/auto-14.rec"
+0 20800000 AUTO -13122.671875
+.
+"data/d/muzika1.rec"
+0 9000000 MUZIKA -5406.050781
+.
+"data/d/pocitac16.rec"
+0 7900000 POCITAC -4836.195312
+.
+"data/d/pocitac12.rec"
+0 8000000 POCITAC -4900.526367
+.
+"data/c/muzika-27.rec"
+0 11500000 MUZIKA -6832.438477
+.
+"data/c/stres-07.rec"
+0 10000000 STRES -5470.223145
+.
+"data/b/auto-06.rec"
+0 18500000 AUTO -11758.486328
+.
+"data/c/pocitac-10.rec"
+0 13600000 POCITAC -8930.217773
+.
+"data/c/muzika-06.rec"
+0 13800000 MUZIKA -8231.043945
+.
+"data/a/muzika-25.rec"
+0 13800000 MUZIKA -8524.344727
+.
+"data/c/auto-01.rec"
+0 12300000 AUTO -7247.485840
+.
+"data/a/stres-07.rec"
+0 13400000 STRES -7161.208496
+.
+"data/a/auto-19.rec"
+0 9200000 AUTO -5335.153320
+.
+"data/c/auto-07.rec"
+0 10400000 AUTO -5866.107910
+.
+"data/a/auto-12.rec"
+0 14500000 AUTO -8028.569824
+.
+"data/a/auto-20.rec"
+0 16200000 AUTO -9147.928711
+.
+"data/a/auto-16.rec"
+0 15700000 AUTO -8628.488281
+.
+"data/c/pocitac-28.rec"
+0 11500000 POCITAC -7872.520020
+.
+"data/b/muzika-10.rec"
+0 21700000 MUZIKA -12505.116211
+.
+"data/b/muzika-13.rec"
+0 17200000 MUZIKA -9620.601562
+.
+"data/b/pocitac-13.rec"
+0 18100000 POCITAC -10886.587891
+.
+"data/d/stres2.rec"
+0 13200000 STRES -7388.621094
+.
+"data/a/muzika-16.rec"
+0 15500000 MUZIKA -9259.218750
+.
+"data/a/muzika-04.rec"
+0 11700000 MUZIKA -6766.664062
+.
+"data/b/muzika-09.rec"
+0 14500000 POCITAC -8898.774414
+.
+"data/c/auto-08.rec"
+0 11500000 AUTO -6604.496094
+.
+"data/a/muzika-27.rec"
+0 16000000 MUZIKA -8874.571289
+.
+"data/d/auto5.rec"
+0 5100000 AUTO -3279.462158
+.
+"data/a/stres-01.rec"
+0 15500000 STRES -8384.764648
+.
+"data/a/stres-14.rec"
+0 13400000 STRES -7113.955078
+.
+"data/a/pocitac-13.rec"
+0 13800000 POCITAC -8203.103516
+.
+"data/a/stres-23.rec"
+0 13600000 STRES -7308.944824
+.
+"data/c/pocitac-05.rec"
+0 12300000 POCITAC -7824.640137
+.
+"data/c/pocitac-06.rec"
+0 13400000 POCITAC -8839.631836
+.
+"data/c/muzika-05.rec"
+0 12300000 MUZIKA -7505.410645
+.
+"data/d/muzika10.rec"
+0 5800000 MUZIKA -3860.563232
+.
+"data/a/muzika-23.rec"
+0 15300000 MUZIKA -8565.381836
+.
+"data/a/muzika-02.rec"
+0 14300000 MUZIKA -8179.285156
+.
+"data/b/auto-13.rec"
+0 22300000 AUTO -13088.493164
+.
+"data/a/muzika-06.rec"
+0 14500000 MUZIKA -8126.875977
+.
+"data/c/muzika-01.rec"
+0 11300000 MUZIKA -6824.384766
+.
+"data/c/muzika-37.rec"
+0 11300000 MUZIKA -7222.021484
+.
+"data/b/pocitac-04.rec"
+0 24200000 POCITAC -14114.722656
+.
+"data/c/stres-16.rec"
+0 11300000 STRES -6440.123535
+.
+"data/d/auto16.rec"
+0 6100000 AUTO -3949.213623
+.
+"data/b/muzika-12.rec"
+0 16400000 MUZIKA -9513.182617
+.
+"data/b/muzika-05.rec"
+0 16200000 MUZIKA -9564.966797
+.
+"data/b/auto-11.rec"
+0 18300000 AUTO -10907.063477
+.
+"data/d/stres18.rec"
+0 5000000 STRES -2859.629883
+.
+"data/a/pocitac-21.rec"
+0 14000000 STRES -7994.035156
+.
+"data/a/stres-13.rec"
+0 13000000 STRES -7020.779785
+.
+"data/c/muzika-24.rec"
+0 10600000 MUZIKA -6709.566406
+.
+"data/b/stres-04.rec"
+0 13200000 STRES -8068.609375
+.
+"data/b/muzika-14.rec"
+0 18100000 MUZIKA -9979.808594
+.
+"data/c/stres-05.rec"
+0 8700000 STRES -4933.390625
+.
+"data/a/auto-06.rec"
+0 14900000 AUTO -8150.784180
+.
+"data/d/auto13.rec"
+0 6500000 AUTO -4421.711426
+.
+"data/a/pocitac-01.rec"
+0 10200000 POCITAC -6823.288574
+.
+"data/a/muzika-15.rec"
+0 12800000 MUZIKA -7788.111328
+.
+"data/c/stres-02.rec"
+0 11300000 STRES -6295.422363
+.
+"data/a/auto-01.rec"
+0 19800000 AUTO -11139.286133
+.
+"data/b/pocitac-08.rec"
+0 13800000 POCITAC -8580.514648
+.
+"data/a/muzika-21.rec"
+0 16400000 MUZIKA -9137.548828
+.
+"data/b/pocitac-06.rec"
+0 17900000 POCITAC -10969.795898
+.
+"data/c/muzika-35.rec"
+0 11900000 MUZIKA -7115.477051
+.
+"data/d/muzika8.rec"
+0 7500000 MUZIKA -4661.322266
+.
+"data/a/auto-03.rec"
+0 15100000 AUTO -8496.612305
+.
+"data/b/pocitac-11.rec"
+0 17400000 POCITAC -10354.193359
+.
+"data/a/auto-17.rec"
+0 13000000 AUTO -7414.346191
+.
+"data/a/stres-12.rec"
+0 14900000 STRES -8010.625000
+.
+"data/d/pocitac6.rec"
+0 13600000 POCITAC -8145.943359
+.
+"data/c/muzika-11.rec"
+0 10900000 MUZIKA -6979.657715
+.
+"data/c/muzika-15.rec"
+0 11300000 MUZIKA -6630.112305
+.
+"data/d/stres15.rec"
+0 6200000 STRES -3847.460449
+.
+"data/c/pocitac-25.rec"
+0 11700000 POCITAC -7627.583496
+.
+"data/b/muzika-15.rec"
+0 22800000 MUZIKA -11999.517578
+.
+"data/d/stres7.rec"
+0 12500000 STRES -7205.394043
+.
+"data/d/stres1.rec"
+0 9700000 STRES -5895.571289
+.
+"data/b/auto-15.rec"
+0 21100000 AUTO -13226.741211
+.
+"data/d/auto11.rec"
+0 6900000 AUTO -4231.077637
+.
+"data/c/pocitac-20.rec"
+0 12600000 POCITAC -7813.725586
+.
+"data/a/muzika-14.rec"
+0 13400000 MUZIKA -7742.783203
+.
+"data/c/stres-28.rec"
+0 10600000 STRES -6136.331055
+.
+"data/d/stres10.rec"
+0 12900000 STRES -7446.530762
+.
+"data/b/muzika-03.rec"
+0 16800000 MUZIKA -10234.643555
+.
+"data/d/pocitac1.rec"
+0 11300000 POCITAC -6991.239746
+.
+"data/b/stres-11.rec"
+0 21500000 STRES -12082.578125
+.
+"data/d/auto18.rec"
+0 16600000 MUZIKA -10096.647461
+.
+"data/a/auto-14.rec"
+0 10600000 AUTO -6313.187012
+.
+"data/d/stres5.rec"
+0 7900000 STRES -4795.070312
+.
+"data/b/auto-10.rec"
+0 16200000 AUTO -9214.560547
+.
+"data/a/muzika-30.rec"
+0 14500000 MUZIKA -8318.959961
+.
+"data/c/pocitac-22.rec"
+0 11300000 POCITAC -6759.006348
+.
+"data/c/muzika-18.rec"
+0 10600000 MUZIKA -6342.460449
+.
+"data/a/auto-15.rec"
+0 13400000 AUTO -7981.423828
+.
+"data/d/auto1.rec"
+0 18900000 AUTO -10948.440430
+.
+"data/b/muzika-01.rec"
+0 17900000 MUZIKA -10207.136719
+.
+"data/b/muzika-04.rec"
+0 15300000 MUZIKA -9958.346680
+.
+"data/b/pocitac-09.rec"
+0 21700000 POCITAC -12828.227539
+.
+"data/c/muzika-10.rec"
+0 11700000 MUZIKA -7516.294922
+.
+"data/d/pocitac14.rec"
+0 8900000 POCITAC -5596.873535
+.
+"data/c/stres-08.rec"
+0 9600000 STRES -5309.982422
+.
+"data/a/pocitac-10.rec"
+0 12300000 POCITAC -7369.811523
+.
+"data/d/pocitac8.rec"
+0 10700000 POCITAC -6435.787109
+.
+"data/c/pocitac-04.rec"
+0 11900000 POCITAC -7673.257324
+.
+"data/c/stres-23.rec"
+0 8300000 STRES -4839.827148
+.
+"data/a/pocitac-05.rec"
+0 13600000 POCITAC -8189.639648
+.
+"data/b/stres-15.rec"
+0 18900000 STRES -11103.088867
+.
+"data/d/auto10.rec"
+0 6400000 AUTO -4035.160645
+.
+"data/c/auto-10.rec"
+0 12300000 AUTO -6952.255371
+.
+"data/c/pocitac-15.rec"
+0 10400000 POCITAC -6835.407227
+.
+"data/c/auto-21.rec"
+0 15100000 AUTO -8131.169922
+.
+"data/c/stres-10.rec"
+0 9800000 STRES -5621.580566
+.
+"data/a/muzika-19.rec"
+0 14700000 MUZIKA -8319.291992
+.
+"data/d/pocitac3.rec"
+0 9100000 POCITAC -5656.657227
+.
+"data/a/muzika-05.rec"
+0 13600000 MUZIKA -7516.925293
+.
+"data/c/muzika-29.rec"
+0 10600000 MUZIKA -6565.361816
+.
+"data/c/muzika-17.rec"
+0 10400000 MUZIKA -6325.567871
+.
+"data/c/pocitac-27.rec"
+0 7900000 POCITAC -5383.019531
+.
+"data/b/pocitac-12.rec"
+0 18500000 POCITAC -11577.599609
+.
+"data/d/stres20.rec"
+0 14500000 STRES -8026.858887
+.
+"data/c/muzika-07.rec"
+0 13000000 MUZIKA -7920.767578
+.
+"data/c/muzika-34.rec"
+0 11500000 MUZIKA -6911.886719
+.
+"data/d/pocitac2.rec"
+0 10200000 POCITAC -6290.816406
+.
+"data/d/auto19.rec"
+0 10400000 AUTO -6412.837402
+.
+"data/c/muzika-08.rec"
+0 11700000 MUZIKA -7147.805664
+.
+"data/a/muzika-07.rec"
+0 14500000 MUZIKA -8202.149414
+.
+"data/c/pocitac-08.rec"
+0 14500000 POCITAC -9169.482422
+.
+"data/c/stres-01.rec"
+0 10400000 STRES -5993.925781
+.
+"data/a/auto-08.rec"
+0 11500000 AUTO -6694.399414
+.
+"data/c/muzika-36.rec"
+0 11900000 MUZIKA -7192.424805
+.
+"data/c/pocitac-29.rec"
+0 12600000 POCITAC -7701.731445
+.
+"data/d/muzika7.rec"
+0 11400000 MUZIKA -7517.491211
+.
+"data/b/pocitac-10.rec"
+0 21300000 POCITAC -12315.348633
+.
+"data/a/muzika-09.rec"
+0 17000000 MUZIKA -10085.869141
+.
+"data/a/muzika-12.rec"
+0 12800000 MUZIKA -7610.031738
+.
+"data/b/pocitac-02.rec"
+0 16800000 POCITAC -10051.225586
+.
+"data/a/stres-15.rec"
+0 12600000 STRES -6545.258789
+.
+"data/a/stres-18.rec"
+0 14500000 STRES -7703.144043
+.
+"data/d/pocitac7.rec"
+0 10400000 POCITAC -6230.031250
+.
+"data/c/stres-15.rec"
+0 11300000 STRES -6516.515625
+.
+"data/c/stres-19.rec"
+0 8700000 STRES -5174.925781
+.
+"data/a/auto-18.rec"
+0 11300000 AUTO -6169.733887
+.
+"data/a/stres-22.rec"
+0 13200000 STRES -7163.118652
+.
+"data/c/muzika-20.rec"
+0 10400000 MUZIKA -6167.173340
+.
+"data/a/pocitac-23.rec"
+0 15500000 POCITAC -8520.264648
+.
+"data/c/auto-15.rec"
+0 16000000 AUTO -8868.464844
+.
+"data/b/muzika-11.rec"
+0 20000000 MUZIKA -11330.981445
+.
+"data/a/stres-20.rec"
+0 12600000 STRES -7463.655762
+.
+"data/c/muzika-32.rec"
+0 9800000 MUZIKA -5981.759766
+.
+"data/c/pocitac-16.rec"
+0 12600000 POCITAC -8312.910156
+.
+"data/a/stres-21.rec"
+0 13800000 STRES -7568.208008
+.
+"data/c/auto-18.rec"
+0 13000000 AUTO -7457.231445
+.
+"data/b/pocitac-05.rec"
+0 22500000 POCITAC -12904.669922
+.
+"data/a/auto-02.rec"
+0 13800000 AUTO -7943.468750
+.
+"data/d/stres8.rec"
+0 14100000 STRES -8037.823242
+.
+"data/a/muzika-10.rec"
+0 14500000 MUZIKA -8407.201172
+.
+"data/b/stres-07.rec"
+0 17200000 STRES -9414.366211
+.
+"data/a/muzika-08.rec"
+0 15100000 MUZIKA -8438.448242
+.
+"data/c/muzika-13.rec"
+0 10900000 MUZIKA -6460.205566
+.
+"data/a/stres-06.rec"
+0 13800000 STRES -7456.595215
+.
+"data/a/muzika-26.rec"
+0 10600000 MUZIKA -6552.285645
+.
+"data/d/pocitac15.rec"
+0 11200000 POCITAC -6879.043945
+.
+"data/d/pocitac20.rec"
+0 8600000 POCITAC -5300.348633
+.
+"data/d/muzika2.rec"
+0 7800000 MUZIKA -4835.200684
+.
+"data/d/muzika12.rec"
+0 5400000 MUZIKA -3561.691406
+.
+"data/a/stres-05.rec"
+0 13600000 STRES -7328.756836
+.
+"data/a/auto-21.rec"
+0 9600000 AUTO -5625.164062
+.
+"data/c/muzika-04.rec"
+0 12300000 MUZIKA -7412.519043
+.
+"data/d/pocitac4.rec"
+0 10400000 POCITAC -6255.304199
+.
+"data/a/pocitac-02.rec"
+0 11700000 POCITAC -7304.218262
+.
+"data/c/muzika-26.rec"
+0 10900000 MUZIKA -6414.956055
+.
+"data/a/muzika-03.rec"
+0 11700000 MUZIKA -6903.490723
+.
+"data/a/pocitac-26.rec"
+0 14700000 POCITAC -8429.246094
+.
+"data/a/auto-09.rec"
+0 8300000 AUTO -5590.976562
+.
+"data/b/stres-09.rec"
+0 20200000 STRES -10874.793945
+.
+"data/c/muzika-22.rec"
+0 11900000 MUZIKA -7130.063965
+.
+"data/d/auto4.rec"
+0 11100000 AUTO -6546.925781
+.
+"data/c/muzika-09.rec"
+0 12600000 MUZIKA -7592.896484
+.
+"data/a/auto-07.rec"
+0 11700000 AUTO -6479.179199
+.
+"data/a/stres-16.rec"
+0 13000000 STRES -6801.775879
+.
+"data/b/stres-02.rec"
+0 17000000 STRES -9499.943359
+.
+"data/a/muzika-22.rec"
+0 16400000 MUZIKA -9281.868164
+.
+"data/a/pocitac-19.rec"
+0 17700000 POCITAC -9862.617188
+.
+"data/a/muzika-28.rec"
+0 13600000 MUZIKA -8087.005859
+.
+"data/d/stres16.rec"
+0 6800000 STRES -4006.062256
+.
+"data/d/muzika13.rec"
+0 5300000 MUZIKA -3522.436768
+.
+"data/a/pocitac-11.rec"
+0 14700000 POCITAC -8466.478516
+.
+"data/c/pocitac-07.rec"
+0 15100000 POCITAC -9550.356445
+.
+"data/b/auto-02.rec"
+0 21700000 AUTO -12476.488281
+.
+"data/d/auto7.rec"
+0 4300000 AUTO -2835.302734
+.
+"data/a/stres-08.rec"
+0 14000000 STRES -7257.958008
+.
+"data/d/auto6.rec"
+0 4100000 AUTO -2761.543945
+.
+"data/a/auto-11.rec"
+0 10600000 AUTO -6179.869629
+.
+"data/d/stres13.rec"
+0 6300000 STRES -3714.250244
+.
+"data/a/pocitac-20.rec"
+0 18300000 STRES -10084.752930
+.
+"data/c/stres-22.rec"
+0 8700000 STRES -5012.015137
+.
+"data/a/pocitac-22.rec"
+0 15300000 POCITAC -8255.495117
+.
+"data/a/stres-26.rec"
+0 14000000 STRES -7908.507324
+.
+"data/c/auto-11.rec"
+0 11900000 AUTO -6979.636719
+.
+"data/b/stres-12.rec"
+0 21900000 STRES -12698.553711
+.
+"data/d/stres11.rec"
+0 11100000 STRES -6288.205078
+.
+"data/d/pocitac10.rec"
+0 8000000 POCITAC -4775.837891
+.
+"data/c/stres-20.rec"
+0 8300000 STRES -4805.489746
+.
+"data/c/stres-12.rec"
+0 10400000 STRES -6025.651367
+.
+"data/a/muzika-18.rec"
+0 15300000 MUZIKA -8794.428711
+.
+"data/b/stres-14.rec"
+0 19100000 STRES -10584.005859
+.
+"data/b/muzika-08.rec"
+0 17400000 POCITAC -10099.339844
+.
+"data/a/stres-24.rec"
+0 13400000 STRES -7093.490234
+.
+"data/c/stres-24.rec"
+0 9600000 STRES -5496.279297
+.
+"data/c/muzika-12.rec"
+0 11300000 MUZIKA -6924.196289
+.
+"data/a/stres-11.rec"
+0 14900000 STRES -7906.323730
+.
+"data/d/stres19.rec"
+0 4600000 STRES -2707.948730
+.
+"data/c/muzika-02.rec"
+0 11700000 MUZIKA -7142.076660
+.
+"data/a/stres-28.rec"
+0 12800000 STRES -6747.446289
+.
+"data/c/pocitac-09.rec"
+0 14000000 POCITAC -8992.390625
+.
+"data/c/muzika-28.rec"
+0 10900000 MUZIKA -6528.222168
+.
+"data/a/pocitac-17.rec"
+0 16200000 POCITAC -9270.373047
+.
+"data/a/pocitac-27.rec"
+0 15300000 POCITAC -8726.461914
+.
+"data/a/pocitac-15.rec"
+0 12600000 POCITAC -7736.013672
+.
+"data/d/pocitac11.rec"
+0 8200000 POCITAC -5035.488770
+.
+"data/b/auto-07.rec"
+0 16400000 AUTO -9607.762695
+.
+"data/d/pocitac5.rec"
+0 9100000 POCITAC -5385.580566
+.
+"data/c/stres-25.rec"
+0 7500000 STRES -4542.261230
+.
+"data/d/muzika6.rec"
+0 15200000 MUZIKA -10158.506836
+.
+"data/c/auto-20.rec"
+0 12300000 AUTO -6851.503906
+.
+"data/a/pocitac-14.rec"
+0 14900000 STRES -8760.095703
+.
+"data/b/muzika-07.rec"
+0 16600000 POCITAC -9532.850586
+.
+"data/d/muzika5.rec"
+0 14100000 MUZIKA -8992.762695
+.
+"data/b/auto-03.rec"
+0 21700000 AUTO -12167.355469
+.
+"data/c/stres-11.rec"
+0 9600000 STRES -5540.354980
+.
+"data/a/pocitac-25.rec"
+0 15100000 POCITAC -8537.033203
+.
+"data/c/muzika-16.rec"
+0 11700000 MUZIKA -7398.651855
+.
+"data/b/auto-04.rec"
+0 23800000 AUTO -13253.393555
+.
+"data/c/auto-16.rec"
+0 12600000 AUTO -7215.236816
+.
+"data/d/muzika4.rec"
+0 9900000 MUZIKA -5980.200684
+.
+"data/c/muzika-19.rec"
+0 11500000 MUZIKA -6901.535645
+.
+"data/a/auto-22.rec"
+0 12300000 AUTO -6960.191895
+.
+"data/c/pocitac-02.rec"
+0 12600000 POCITAC -8060.966797
+.
+"data/c/auto-02.rec"
+0 13000000 AUTO -7562.458984
+.
+"data/c/stres-27.rec"
+0 8100000 STRES -4693.503906
+.
+"data/a/auto-24.rec"
+0 11900000 AUTO -6745.812500
+.
+"data/a/pocitac-24.rec"
+0 13400000 POCITAC -7783.474609
+.
+"data/b/muzika-06.rec"
+0 15700000 MUZIKA -9506.522461
+.
+"data/c/muzika-14.rec"
+0 10600000 MUZIKA -6355.429688
+.
+"data/c/auto-06.rec"
+0 11100000 AUTO -6364.409180
+.

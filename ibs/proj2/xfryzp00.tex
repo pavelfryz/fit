@@ -1,0 +1,101 @@
+%==============================================================================
+% Název: IBS - Laboratorní cvičení
+% Datum: 4. 5. 2012
+% Autor: Pavel Frýz
+%==============================================================================
+% kódování: utf-8
+% překlad: make
+%==============================================================================
+
+\documentclass[a4paper,final]{article}
+\usepackage{amsmath,amssymb}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{thumbpdf}
+\usepackage{listings}
+\usepackage{ifthen}
+\usepackage[top=3cm, left=3cm, text={15cm, 24cm}, ignorefoot]{geometry}
+\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>} \urlstyle{tt}}
+\renewcommand\uv[1]{\quotedblbase #1\textquotedblleft}%
+
+\setlength{\parindent}{0em}
+
+\ifx\pdfoutput\undefined  % nejedeme pod pdftexem
+  \usepackage{graphics}
+  \usepackage{epsfig}
+\else % je to pdftex !
+  \usepackage[pdftex]{graphicx}
+  \usepackage{color}
+  \usepackage[unicode,colorlinks,linkcolor=black,citecolor=black,urlcolor=black,hyperindex,plainpages=false,pdftex]{hyperref}
+  \definecolor{links}{gray}{0}
+  \definecolor{anchors}{gray}{0}
+  \def\AnchorColor{anchors}
+  \def\LinkColor{links}
+  \def\pdfBorderAttrs{/Border [0 0 0] }
+  \pdfcompresslevel=9
+\fi
+
+%------------------------------------------------------------------------------
+\title{\bfseries{IBS - Laboratorní cvičení}}
+\date{\today}
+\author{Pavel Frýz}
+%------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle      % Titulok
+
+\section*{Cíl úlohy}
+\begin{itemize}
+  \item Seznámit se s~nástrojom Scyther.
+  \item Vyzkoušet si implementaci symetrických a~asymetrických bezpečnostních protokolů.
+  \item Vyzkoušet si verifikaci bezpečnostních protokolů v~nástroji Scyther.
+\end{itemize}
+
+\section*{Studijní materiály}
+\begin{itemize}
+  \item V~této úloze bude cílem implementovat protokoly
+  \emph{Needham-Schroeder Public Key}, \emph{Otway Rees} a~protokol \emph{Denning-Sacco}.
+  \item Studijní materiály
+    \begin{itemize}
+      \item Needham-Schroeder Public Key\\
+      \url{http://www.lsv.ens-cachan.fr/Software/spore/nspk.html}\\
+      Roger Needham and Michael Schroeder. Using encryption for authentification
+      in large networks of computers. \emph{Communications of the ACM}, 21(12), December
+      1978.
+      \item Otway Rees\\
+      \url{http://www.lsv.ens-cachan.fr/Software/spore/otwayRees.html}\\
+      John Clark and Jeremy Jacob. A~survey of authentication protocol literature : Version 1.0., November 1997.
+      \item Denning-Sacco\\
+      \url{http://www.lsv.ens-cachan.fr/Software/spore/denningSacco.html}\\
+      D.\,Denning and G.\,Sacco. Timestamps in key distributed protocols.
+      \emph{Communication of the ACM}, 24(8):533--535, 1981.
+    \end{itemize}
+\end{itemize}
+
+\section*{Příprava prostředí}
+\begin{itemize}
+  \item Stáhněte a~nainstalujte knihovnu GraphViz-Graph Visualization Software:\\
+  \url{http://www.graphviz.org/Download.php}.
+  \item Stáhněte instalační soubor Pythonu 2.x a~spusťte instalaci:\\
+  \url{http://www.python.org/download/}
+  \item Stáhněte a~nainstalujte knihovnu wxPython, vyberte verzi odpovídající verzi Pythonu:\\
+  \url{http://www.wxpython.org/download.php}
+  \item Stáhněte a~rozbalte archiv s~nástrojem Scyther:\\
+  \url{http://people.inf.ethz.ch/cremersc/scyther/install-generic.html}
+  \item Spusťte soubor \texttt{scyther-gui.py} z~adresáře aplikace.
+\end{itemize}
+
+\lstset{numbers=left, stepnumber=1, numberstyle=\tiny,
+        tabsize=1, xleftmargin=0.6cm, basicstyle=\ttfamily,
+        morecomment=[l]\#}
+%------------------------------------------------------------------------------
+\input{NSPK}      % Needham-Schroeder Public Key
+
+\input{OtwayRees}   % Otway Rees
+
+\input{DenningSacco}   % Denning-Sacco
+
+\end{document}

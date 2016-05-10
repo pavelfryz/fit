@@ -1,0 +1,34 @@
+=========================================================================
+Navod na zprovozneni prekladu aplikace se vzorovym resenim CPU
+=========================================================================
+
+Soubor cpu.ngc obsahuje vysyntetizovanou entitu CPU vzoroveho reseni. Chcete-li vyuzit vysyntetizovany kod ve vasi aplikaci 
+(napr. pokud si chcete vyzkouset ruzne programy v BrainFuck jazyku aniz byste museli psat VHDL kod cpu.vhd, nebo 
+proste proto, abyste mohli porovnat chovani vzoroveho reseni s vasim resenim), postupujte nasledovne. 
+
+SYNTEZA (pouze pokud chcete menit kod v top.vhd aniz byste psali cpu.vhd)
+
+1. V prvni fazi zakomentujde radek <file>cpu.vhd</file> v souboru project.xml, aby nedoslo k prekladu prazdne architektury 
+   (soubory v projektu maji totiz prioritu pred NGC souborem; NGC soubory jsou hledany teprve pote, co nebyla nalezena
+   entita daneho jmena v knihovne work).
+
+2. Mate-li QDevkit verze starsi nez-li 1.2.5, pak je nutne nahrat do adresare build/fpga soubor cpu.ngc 
+   Pozor, prikaz "make clean" (pripadne vycistit vse v Qdevkitu) maze vsechny soubory v tomto adresari.
+   Pokud synteza skonci chybou tykajici se neexistence entity cpu, pravdepodobne se nepodarilo soubor cpu.ngc nalezt.
+
+   Mate-li QDevkit verze 1.2.5 ci novejsi, predchozi kroky jsou automatizovane diky atributu ngcpath="fpga/ngc" v souboru project.xml. 
+   Postaci se pouze postarat o to, aby se neprelozila prazdna architektura k cpu (tzn. splnit bod 1).
+
+
+SIMULACE (neni nezbytne nutne provadet, pouze pokud chcete simulovat projekt aniz byste psali cpu.vhd)
+
+1. Pokud si prejete provadet simulaci vyuzivajici tento model, je zapotrebi odstranit komentare obsahujici klicove slova "pragma translate" 
+   v souboru top.vhd. Tyto radky zpusobuji, ze kod uvnitr je vynechan behem syntezy. Ovsem v tomto pripade je nutne delat simulaci po
+   synteze (nebot synteza nezna kod cpu) a z duvodu casove narocnosti bychom se timpadem nedockali vysledku. Konfigurace CMDLEN => 1000 
+   zpusobi zkraceni casu potrebneho k zapsani prikazu na LCD displej (displej je v praxi mnohem pomalejsi nez mikrokontroler). 
+
+2. Pro QDevkit verze 1.2.5 ci novejsi je postup nasledujici. V QDevkitu zvolit "Otevrit projekt v ISE". Jakmile najede vyvojove prostredi
+   Xilinx ISE, lze v casti "Design" prepnout pohled na "Simulation", zvolit v roletce typ simulace "Post-Translate" (tzn. po synteze),
+   kliknout na soubor s nazvem "testbench" a ve spodnim okne "Processes" spustit proces s nazvem "Simulate Post-Translate Model".
+
+   Pro QDevkit starsi verze je zapotrebi manualne do projektu pridat soubory s test benchem a nastavit cestu k NGC.

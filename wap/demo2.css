@@ -1,0 +1,51 @@
+/*change window frame*/
+.window {
+	border: 2px solid blue;
+}
+
+/*change height of title and background color*/
+.title{
+	height: 40px;
+	background: blue;
+}
+
+/*content top posision should be same as height of title*/
+.content{
+	top: 40px;
+}
+
+/*change background of maximize button and its size*/
+.minmax {
+	width: 40px;
+	height: 40px;
+	background: blue url("up.png") no-repeat center;
+}
+
+/*change background of minimize button*/
+[data-fs='true']>div>.minmax {
+	background: blue url("down.png") no-repeat center;
+}
+
+/*make resize area handles wider*/
+.right,.left,.topleft,.topright,.bottomleft,.bottomright{
+	width: 20px;
+}
+
+/*make resize area handles heigher*/
+.top,.bottom,.topleft,.topright,.bottomleft,.bottomright{
+	height: 20px;
+}
+
+/*move resize area partialy outside window*/
+.top,.topleft,.topright{
+	top:-8px;
+}
+.bottom,.bottomleft,.bottomright{
+	bottom:-8px;
+}
+.topleft,.left,.bottomleft{
+	left:-8px;
+}
+.topright,.right,.bottomright{
+	right:-8px;
+}

@@ -1,0 +1,164 @@
+Breclav,48.760222,16.880738
+Brno,49.19142,16.611958
+Ceska Lipa,50.686659,14.537131
+Ceske Budejovice,48.97375,14.475117
+Cesky Krumlov,48.810709,14.315034
+Cheb,50.077775,12.375773
+Chomutov,50.460546,13.418157
+Decin,50.781772,14.214585
+Domazlice,49.441087,12.926014
+Frydek-Mistek,49.68528,18.348066
+Havirov,49.784043,18.433034
+Havlickuv Brod,49.606951,15.579352
+Hodonin,48.851142,17.127078
+Hradec Kralove,50.209494,15.832615
+Jicin,50.437071,15.351326
+Jihlava,49.39551,15.591052
+Jindrichuv Hradec,49.151514,15.010818
+Karlovy Vary,50.232209,12.871295
+Karvina,49.85347,18.540798
+Kladno,50.147016,14.103289
+Kolin,50.027997,15.201169
+Krnov,50.089506,17.704507
+Kromeriz,49.298964,17.390615
+Liberec,50.767147,15.056019
+Mlada Boleslav,50.410762,14.902802
+Most,50.503182,13.636261
+Novy Jicin,49.595389,18.010172
+Olomouc,49.595424,17.251911
+Opava,49.93877,17.902708
+Ostrava,49.841215,18.290062
+Pardubice,50.037856,15.780866
+Pisek,49.308341,14.147512
+Plzen,49.747623,13.377857
+Praha,50.089001,14.420815
+Prerov,49.455441,17.450402
+Pribram,49.689783,14.010109
+Prostejov,49.471501,17.112427
+Sokolov,50.181399,12.639748
+Svitavy,49.755948,16.469468
+Sumperk,49.965482,16.970056
+Tabor,49.41416,14.657818
+Teplice,50.639967,13.824574
+Trebic,49.21584,15.879931
+Trinec,49.677329,18.670056
+Trutnov,50.560916,15.912825
+Uherske Hradiste,49.06835,17.460524
+Usti nad Labem,50.661062,14.03326
+Valasske Mezirici,49.471773,17.97155
+Vsetin,49.340275,17.992997
+Zlin,49.226893,17.66893
+Znojmo,48.856432,16.048533
+----
+Brno,Praha,210,130
+Brno,Prostejov,60,130
+Brno,Kromeriz,65,130
+Brno,Breclav,58,130
+Brno,Znojmo,68,100
+Brno,Trebic,62,90
+Brno,Jihlava,88,120
+Brno,Svitavy,70,90
+Brno,Uherske Hradiste,79,90
+Ceska Lipa,Decin,31,80
+Ceska Lipa,Liberec,52,90
+Ceska Lipa,Mlada Boleslav,48,90
+Ceska Lipa,Most,88,80
+Ceske Budejovice,Jindrichuv Hradec,54,80
+Ceske Budejovice,Pisek,52,80
+Ceske Budejovice,Cesky Krumlov,25,80
+Cesky Krumlov,Domazlice,156,80
+Cheb,Sokolov,30,110
+Cheb,Domazlice,101,80
+Hradec Kralove,Trutnov,50,90
+Hradec Kralove,Jicin,48,90
+Hradec Kralove,Kolin,63,110
+Hradec Kralove,Praha,114,120
+Hradec Kralove,Pardubice,24,90
+Hradec Kralove,Svitavy,76,90
+Hradec Kralove,Sumperk,114,80
+Havlickuv Brod,Kolin,59,90
+Havlickuv Brod,Svitavy,79,80
+Havirov,Karvina,15,70
+Havirov,Ostrava,19,90
+Havirov,Frydek-Mistek,17,80
+Hodonin,Uherske Hradiste,42,90
+Hodonin,Breclav,22,90
+Jicin,Mlada Boleslav,35,80
+Jicin,Liberec,50,100
+Jicin,Trutnov,53,80
+Jicin,Kolin,57,70
+Jihlava,Havlickuv Brod,26,90
+Jihlava,Jindrichuv Hradec,58,90
+Jihlava,Tabor,77,70
+Kladno,Karlovy Vary,105,90
+Kladno,Most,64,80
+Karlovy Vary,Sokolov,21,90
+Karlovy Vary,Plzen,83,90
+Karlovy Vary,Chomutov,56,90
+Krnov,Sumperk,77,80
+Krnov,Opava,24,90
+Kromeriz,Zlin,29,90
+Kromeriz,Uherske Hradiste,34,70
+Kromeriz,Prerov,26,80
+Mlada Boleslav,Liberec,52,120
+Mlada Boleslav,Kolin,55,70
+Novy Jicin,Olomouc,65,130
+Novy Jicin,Frydek-Mistek,29,90
+Novy Jicin,Opava,46,90
+Olomouc,Sumperk,59,110
+Olomouc,Opava,76,80
+Olomouc,Prostejov,20,130
+Ostrava,Opava,34,70
+Ostrava,Olomouc,110,110
+Ostrava,Novy Jicin,42,80
+Ostrava,Frydek-Mistek,23,100
+Ostrava,Karvina,24,80
+Prerov,Prostejov,28,70
+Prerov,Olomouc,25,90
+Praha,Tabor,96,110
+Praha,Pribram,60,120
+Praha,Plzen,93,120
+Praha,Kladno,29,100
+Praha,Kolin,69,100
+Praha,Teplice,89,120
+Praha,Mlada Boleslav,56,110
+Plzen,Pribram,63,70
+Plzen,Pisek,85,80
+Plzen,Cheb,110,110
+Plzen,Most,102,80
+Plzen,Domazlice,54,80
+Pardubice,Kolin,58,80
+Pardubice,Havlickuv Brod,66,80
+Pisek,Domazlice,105,80
+Pisek,Cesky Krumlov,75,80
+Pisek,Pribram,52,90
+Valasske Mezirici,Prerov,47,90
+Valasske Mezirici,Novy Jicin,18,70
+Valasske Mezirici,Vsetin,19,80
+Svitavy,Sumperk,60,70
+Svitavy,Olomouc,70,110
+Svitavy,Prostejov,66,80
+Svitavy,Pardubice,73,80
+Teplice,Decin,38,80
+Teplice,Usti nad Labem,22,100
+Teplice,Most,27,80
+Trebic,Jindrichuv Hradec,74,70
+Trebic,Jihlava,34,90
+Tabor,Ceske Budejovice,60,90
+Tabor,Jindrichuv Hradec,57,80
+Tabor,Pisek,45,80
+Trutnov,Liberec,97,60
+Trutnov,Sumperk,141,80
+Trinec,Frydek-Mistek,28,100
+Trinec,Havirov,29,80
+Trinec,Karvina,26,90
+Zlin,Uherske Hradiste,27,70
+Zlin,Vsetin,33,80
+Zlin,Prerov,39,70
+Znojmo,Trebic,48,90
+Znojmo,Jindrichuv Hradec,91,70
+Znojmo,Breclav,81,90
+Usti nad Labem,Decin,26,80
+Vsetin,Frydek-Mistek,68,70
+Chomutov,Most,25,80
+Decin,Liberec,72,90

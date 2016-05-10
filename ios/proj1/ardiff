@@ -1,0 +1,308 @@
+#!/bin/sh
+
+trap 'clean 1 ""' 1 2 3 6 15
+
+
+#  name: clean
+#  @param $1 chybovy kod
+#  @param $2 chybova zprava
+#  Smaze docasne soubory a ukonci program
+#  s chybovym kodem, a pripadne chybovou zpravou 
+clean(){
+	rm -rf $TMPDIR
+	if [ $1 -ge 1 ];then
+	  echo $2 >&2
+	fi
+	exit $1
+}
+
+#  name: pack
+#  @param $1 slozka
+#  @param $2 jmeno ciloveho archivu
+#  Vytvori archiv vsech souboru v dane sloze
+#  se zadanym jmenem
+#  Typ archivu urci podle koncovky
+pack(){
+	if [ -d $1 ];then
+	(	
+	  cd $1
+	  find . ! -name . -prune |sed -e 's/^\.\///'>../list
+	  if [ "`echo "$2"|grep '.zip$\|.ZIP$'`" != "" ];then
+        cat <../list|zip -rq "$2" -@ 2>/dev/null||clean 1 "Nepodarilo se vytvorit zip archiv"
+      elif [ "`echo "$2"|grep '.tar.bz2$'`" != "" ];then
+        tar -cf "$2" --bzip2 -T ../list 2>/dev/null||clean 1 "Nepodarilo se vytvorit bzip2 archiv"
+      elif [ "`echo "$2"|grep '.tgz$\|.tar.gz$'`" != "" ];then
+        tar -czf "$2" -T ../list 2>/dev/null||clean 1 "Nepodarilo se vytvorit gzip archiv"
+      elif [ "`echo "$2"|grep '.tar$'`" != "" ];then
+        tar -cf "$2" -T ../list 2>/dev/null||clean 1 "Nepodarilo se vytvorit tar archiv"
+      else
+        clean 1 "Nepodporovany vystupni archiv"
+     fi
+	)||exit 1
+	mv $1/$2 $2 2>&1 >/dev/null||clean 1 "Nepodarilo se presunout $1/$2 do $2"
+	fi    
+}
+
+#  name: unpack
+#  @param $1 archiv
+#  @param $2 cilovy adresar
+#  Rozbali archiv do ciloveho adresare
+unpack(){ 
+	while [ $# -ne 0 ]
+	do
+	  type=`file "$1"`
+	  type="${type#$1}"
+	
+      if [ "`echo "$type" | grep 'Zip'`" != "" ];then
+        unzip -q $1 -d $2 2>/dev/null||clean 1 "Nepodarilo se rozbalit zip archiv"
+      elif [ "`echo "$type" | grep 'gzip'`" != "" ];then
+        tar -xzf $1 -C $2 2>/dev/null||clean 1 "Nepodarilo se rozbalit gzip archiv"
+      elif [ "`echo "$type" | grep 'bzip2'`" != "" ];then
+        tar --bzip2 -xf $1 -C $2 2>/dev/null||clean 1 "Nepodarilo se rozbalit bzip2 archiv" 
+      elif [ "`echo "$type" | grep 'tar'`" != "" ];then
+        tar -xf $1 -C $2 2>/dev/null||clean 1 "Nepodarilo se rozbalit tar archiv"
+      else
+        clean 1 "Nepodporovany archiv"
+      fi
+      shift 2
+    done
+}
+
+
+#  name: patchrec
+#  @param $1 reverzni patchovani-true,false
+#  @param $2 cesta
+#  Rekurzivne aplikuje vsechny patche
+#  ve slozce b na slozku a, cesta slouzi
+#  k rekurzivnimu volani na podslozky
+print0='-exec printf %s\000'
+toesc="sed 's/~/~~/g'|tr '\n\0' '~\n'"
+tostr="tr -d '\n'|sed -e 's/\([^~]\)~\([^~]\)/\1\n\2/g' -e 's/~~/~/g'"
+patchrec(){  
+	find -L "b$2" -exec test "b$2" != '{}' \; -prune -name '*.patch' $print0 '{}' \; 2>/dev/null|\
+	eval "$toesc"|while read file
+	do
+		file=`printf '%s' "$file"|eval "$tostr"`
+		pat="${file#b}"
+		if [ -d "a${pat%.patch}" ];then
+	    	backup="$pat"
+	    	patchrec $1 "${pat%.patch}"
+	    	pat="$backup"
+	    	rm -rf "b${pat%.patch}"
+		fi
+		if $1;then
+		  patch -sf -R "a${pat%.patch}" "b$pat" 2>/dev/null >/dev/null||clean 1 "Chyba pri patchovani souboru"
+		else
+		  patch -sf "a${pat%.patch}" "b$pat" 2>/dev/null >/dev/null||clean 1 "Chyba pri patchovani souboru"
+		fi
+	done
+
+	
+	find -L "b$2" -exec test "b$2" != '{}' \; -prune -type d $print0 '{}' \; 2>/dev/null|\
+	eval "$toesc"|while read file
+    do
+    	file=`printf '%s' "$file"|eval "$tostr"`
+    	patchrec $1 "${file#b}"
+    done
+}
+
+#  name: divDiff 
+#  @param $1 diff soubor
+#  Rozdeli soubore vytvoreny
+#  programem diff s prepinaci -ur
+#  na dilci soubory, vse vytvori
+#  do slozky patch
+#  Vypise rozdilne soubory do souboru logfile
+divDiff(){ 
+gawk '
+    BEGIN{outputdir="";output="";diff=0;buffer=""}
+    /^diff/&&(diff==0){diff=1;buffer="";outputdir="";output=""}
+    !/^---/&&(diff==1){buffer=buffer $0 "\n"}
+    /^---/&&(diff==1){
+    	sub(/diff -aurN /,"",buffer);
+    	output=substr(buffer,2, (length(buffer)-1)/2-1);
+    	if (match(output,/\/[^\/]*$/)) {
+            outputdir = substr(output,1,RSTART-1);
+            output = substr(output,RSTART,RLENGTH);
+    	}
+    	if (system("mkdir -p \"patch/" outputdir "\"")!=0) {
+			exit 1
+		}
+    	buffer = outputdir output
+    	sub(/^\//,"",buffer)
+    	print buffer>>"logfile"
+    	diff=0
+    	buffer=""
+	}
+   !/^diff/&&(diff==0){print $0>>"patch" outputdir output ".patch"}' $1 2>/dev/null||\
+   return 1
+}
+
+#  name: backupFile
+#  @param $1 slozka X
+#  @param $2 slozka Y
+#  Soubory ze slozky, kterym
+#  odpovida slozka ve slozce Y,
+#  presune do slozky backup, vcetne
+#  cele cesty k souboru(vcetne X)
+backupFile(){
+retvals=`find -L "$1" -type f -exec sh -c '
+		file="$3" 
+		if [ -d "$2${file#$1}" ];then
+			mkdir -p "backup/${file%/*}"||{
+				echo 1
+				exit 1
+			}
+			mv "$file" "backup/$file"||{
+				echo 1
+				exit 1
+			}
+		fi
+		echo 0' : $1 $2 {} \;`
+for error in $retvals
+do
+  if [ $error -ne 0 ];then
+    return 1
+  fi
+done
+}
+
+#  name: compare
+#  Porovna soubory ve slozce a a b
+#  Ve slozce patch-vsechny patche 
+#  V souboru logfile-rozdilne soubory
+compare(){
+	backupFile a b||clean 1 "Chyba pri zaloze problemovych souboru"
+	backupFile b a||clean 1 "Chyba pri zaloze problemovych souboru"
+    diff -aurN a b>1.diff 2>/dev/null
+    if [ $? -ge 2 ];then
+      clean 1 "Chyba pri vytvareni rozdiloveho souboru"
+    fi
+    if [ -d backup ];then
+      ( 
+        cd backup||exit 1
+        diff -aurN a b>2.diff 2>/dev/null
+        if [ $? -ge 2 ];then
+          exit 1
+        fi
+      )||clean 1 "Chyba pri vytvareni rozdiloveho souboru" 
+      mv backup/2.diff 2.diff  
+      divDiff 2.diff||clean 1 "Chyba pri deleni rozdiloveho souboru"
+    fi
+    divDiff 1.diff||clean 1 "Chyba pri deleni rozdiloveho souboru"
+}
+
+#######################################################################
+
+# zadne paramtery - tisk napovedy
+if [ $# -eq 0 ];then
+  echo 'ardiff vypisuje zmeny archivu, vytvari rozdilovy archiv nebo aplikuje rozdilovy
+archiv na zdrojovy archiv.
+Pouziti: ardiff [volby] archiv1 archiv2
+Volby:
+  -o SOUBOR  Pokud je cilem skriptu vytvorit archiv, bude vytvoren do souboru
+             se jmenem SOUBOR (plati pro -c a -p).
+  -l         Vypis seznamu souboru, ktere se v zadanych archivech lisi.
+  -c         Vytvoreni rozdiloveho archivu.
+  -p         Aplikace rozdiloveho archivu (argument archiv2) na zdrojovy archiv
+             (argument archiv1).
+  -r         Prepnuti do reverzniho rezimu (plati pro -p).'
+  exit 0
+fi
+# zpracovani parametru
+l=false
+o=false
+r=false
+p=false
+c=false
+while getopts :lo:rpc options
+do      case "$options" in
+        l)      l=true;;
+        o)      o=true; dest="$OPTARG";;
+        r)      r=true;;
+        p)      p=true;;
+        c)      c=true;;
+        *)      echo 'ardiff vypisuje zmeny archivu, vytvari rozdilovy archiv nebo aplikuje rozdilovy
+archiv na zdrojovy archiv.
+Pouziti: ardiff [volby] archiv1 archiv2
+Volby:
+  -o SOUBOR  Pokud je cilem skriptu vytvorit archiv, bude vytvoren do souboru
+             se jmenem SOUBOR (plati pro -c a -p).
+  -l         Vypis seznamu souboru, ktere se v zadanych archivech lisi.
+  -c         Vytvoreni rozdiloveho archivu.
+  -p         Aplikace rozdiloveho archivu (argument archiv2) na zdrojovy archiv
+             (argument archiv1).
+  -r         Prepnuti do reverzniho rezimu (plati pro -p).' >&2
+                exit 1;;
+        esac
+done
+OPTIND=`expr $OPTIND - 1`
+shift $OPTIND
+#
+if [ $# -ne 2 ];then
+  echo 'ardiff vypisuje zmeny archivu, vytvari rozdilovy archiv nebo aplikuje rozdilovy
+archiv na zdrojovy archiv.
+Pouziti: ardiff [volby] archiv1 archiv2
+Volby:
+  -o SOUBOR  Pokud je cilem skriptu vytvorit archiv, bude vytvoren do souboru
+             se jmenem SOUBOR (plati pro -c a -p).
+  -l         Vypis seznamu souboru, ktere se v zadanych archivech lisi.
+  -c         Vytvoreni rozdiloveho archivu.
+  -p         Aplikace rozdiloveho archivu (argument archiv2) na zdrojovy archiv
+             (argument archiv1).
+  -r         Prepnuti do reverzniho rezimu (plati pro -p).' >&2
+  exit 1
+fi
+
+# vytvoreni docasneho adresare
+TMPDIR=`mktemp -d /tmp/ardiff.$$.XXXXXXXXXX` 2>/dev/null||{
+	echo "Nepodarilo se vytvorit docasny adresar" >&2
+	exit 1
+}
+# rozbaleni archivu do 'TMPDIR/a' a 'TMPDIR/b'
+mkdir $TMPDIR/a $TMPDIR/b 2>&1 >/dev/null||clean 1 "Nepodarilo se vytvorit docasne slozky a a b"
+unpack $1 $TMPDIR/a $2 $TMPDIR/b
+
+if [ "`echo "$dest" | grep '/'`" != "" ];then
+  path="${dest%/*}/"
+  dest="${dest##*/}"
+fi
+
+(
+  cd $TMPDIR
+  # patchovani
+  if ! $l && $o && $p && ! $c ;then
+	  patchrec $r
+	  pack a $dest 
+  # vytvareni rozdiloveho archivu(+vypsani rozdilnych souboru)
+  elif $o && ! $r && ! $p && $c ;then 
+      compare
+      if $l && [ -f logfile ];then
+        cat <logfile
+      fi
+      pack patch $dest 
+  # pouze vypsani rozdilnych souboru    
+  elif $l && ! $o && ! $p && ! $r && ! $c;then
+  	  compare
+  	  if [ -f logfile ];then
+  	    cat <logfile
+  	  fi
+  # nekompabilni parametry
+  else
+	  clean 1 "ardiff: nezname parametry.
+Vice informaci ziskate prikazem 'ardiff'"
+  fi
+)||exit 1
+
+# presun vytvorenoho archivu z docasne slozky
+if $o && [ -e $TMPDIR/$dest ];then
+  if [ "$path" ];then
+    mkdir -p $path
+  fi
+  mv $TMPDIR/$dest $path$dest 2>/dev/null||clean 1 "Soubor $dest, jiz existuje"
+fi
+
+# smazani docasne slozky a ukonceni programu
+clean 0
+
+#######################################################################

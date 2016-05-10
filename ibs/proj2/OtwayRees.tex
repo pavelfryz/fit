@@ -1,0 +1,102 @@
+\section{Implementace protokolu Otway Rees}
+V~tomto příkladě si vyzkoušíte implementaci a~verifikaci \emph{Otway Rees}
+protokolu, který používá symetrickou kryptografii.
+
+\begin{enumerate}
+  %%%>==== 1.krok
+  \item Po spuštění nástroje zadávajte kód protokolu v~hlavní editovací části okna.
+
+  %%%>==== 2.krok
+  \item Na~úvod deklarujeme funkci pro symetrický klíč. Protože se jedná o~tajný
+  klíč označíme funkci klíčovým slovem \texttt{secret}. Dále deklarujeme nový typ
+  pro distribuovaný klíč \texttt{Key}.
+  \begin{lstlisting}[name=OtwayRees]
+secret k: Function;
+usertype Key;
+  \end{lstlisting}
+
+  %%%>==== 3.krok
+  \item Dále deklarujeme protokol klíčovým slovom \texttt{protocol} nasledovaný jeho jménem a~jmény účastníků.
+  \begin{lstlisting}[name=OtwayRees]
+protocol OtwayRees(A,B,S)
+{
+  \end{lstlisting}
+
+  %%%>==== 4.krok
+  \item Následuje definice jednotlivých uživatelů. Definice účastníka začíná klíčovým slovem \texttt{role}.
+  Prvně definujeme účastníka \texttt{A} a~deklarujeme lokální proměnné pro nonce \texttt{Na} a~\texttt{M},
+  a~pro obdržený klíč \texttt{Kab}.
+  \begin{lstlisting}[name=OtwayRees]
+  role A
+  {
+    const Na: Nonce;
+    const M: Nonce;
+    var Kab: Key;
+  \end{lstlisting}
+
+  %%%>==== 5.krok
+  \item Dále definujem příchozí a~odchozí zprávy účastníka \texttt{A}.
+  Příchozí a~odchozí zpráva začíná klíčovým slovem \texttt{recv}, respektive \texttt{send} následované označením zprávy.
+  V~kulatých závorkách poté následuje od koho zpráva pochází, příjemce zprávy a~text zprávy.
+  \begin{lstlisting}[name=OtwayRees]
+    send_1(A,B,(M,A,B,{Na,M,A,B}k(A,S)));
+    recv_4(B,A,(M,{Na,Kab}pk(A,S)));
+  \end{lstlisting}
+  kde \texttt{\{x\}pk(A,S)} značí zprávu \texttt{x} zašifrovanou sdíleným klíčem \texttt{A} a~\texttt{S}.
+
+  %%%>==== 6.krok
+  \item Nakonec přidáme bezpečnostní požadavky protokolu. V~našem případě se jedná o~utajení distribuovaného klíče \texttt{Kab}
+  a~neinjektivní synchronizaci.
+  \begin{lstlisting}[name=OtwayRees]
+    claim_A1(A,Secret,Kab);
+    claim_A2(A,Nisynch);
+  }
+  \end{lstlisting}
+
+  %%%>==== 7.krok
+  \item Obdobně přidáme i~účastníka \texttt{B}. Protože účastníci musí být schopni
+  dešifrovat příchozí zprávy, musíme u~účasníka \texttt{B} navíc
+  deklarovat proměnné \texttt{T1} a~\texttt{T2} typu \texttt{Ticket}, do kterých
+  můžeme uložit zašifrovanou zprávu.
+  \begin{lstlisting}[name=OtwayRees]
+  role B
+  {
+    const Nb: Nonce;
+    var M: Nonce;
+    var Kab: Key;
+    var T1, T2: Ticket;
+    recv_1(A,B,(M,A,B,T1));
+    send_2(B,S,(M,A,B,T1,{Nb,M,A,B}k(B,S)));
+    recv_3(S,B,(M,T2,{Nb,Kab}k(B,S)));
+    send_4(B,A,(M,T2));
+    claim_B1(B,Secret,Kab);
+    claim_B2(B,Nisynch);
+  }
+  \end{lstlisting}
+
+  %%%>==== 8.krok
+  \item Dále přidáme server \texttt{S}.
+  \begin{lstlisting}[name=OtwayRees]
+  role S
+  {
+    const Kab: Key;
+    var Na, Nb, M: Nonce;
+    recv_2(B,S,(M,A,B,{Na,M,A,B}k(A,S),{Nb,M,A,B}k(B,S)));
+    send_3(S,B,(M,{Na,Kab}k(A,S),{Nb,Kab}k(B,S)));
+  }
+}
+  \end{lstlisting}
+
+  %%%>==== 9.krok
+  \item Nakonec přidáme nedůvěryhodného klienta, jehož sdílený klíč byl zpronevěřen útočníkem.
+  \begin{lstlisting}[name=OtwayRees]
+const C,D: Agent;
+untrusted C;
+compromised k(C,D);
+compromised k(D,C);
+  \end{lstlisting}
+
+  %%%>==== 10.krok
+  \item Spuťte verifikaci protokolu(v menu \texttt{Verify->Verify protocol}), a~projděte výsledky verifikace. Nechte
+  si zobrazit případný útok.
+\end{enumerate}
